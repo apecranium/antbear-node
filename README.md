@@ -9,7 +9,7 @@ yarn
 
 **start database:**
 ```shell
-mongod --dbpath=".\data"
+mongod --dbpath="./data"
 ```
 
 **for hot restart with nodemon and ts-node:**

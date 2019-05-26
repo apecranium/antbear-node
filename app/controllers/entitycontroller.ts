@@ -1,62 +1,56 @@
 import { Router } from 'express';
 import IController from '../interfaces/icontroller';
-import Entity from '../models/entity';
+import EntityService from '../services/entityservice';
 
 export default class EntityController implements IController {
   public path = '/entities';
   public router = Router();
+  private entityService = new EntityService();
 
   constructor() {
-    this.router.get(this.path, (req, res) => {
-      Entity.find((err, entities) => {
-        if (err) {
-          res.status(500).json({ error: `${err}` });
-        } else {
-          res.json(entities);
-        }
-      });
+    this.router.get(this.path, async (req, res, next) => {
+      try {
+        const entities = await this.entityService.getEntities();
+        res.json(entities);
+      } catch (err) {
+        next(err);
+      }
     })
-    .post(this.path, (req, res) => {
-      const entity = new Entity(req.body);
-      entity.save().then(() => {
-        res.status(201).json({ message: `added entity ${entity.name}` });
-      })
-      .catch(err => {
-        res.status(500).json({ error: `${err}` });
-      });
+
+    .post(this.path, async (req, res, next) => {
+      try {
+        const entity = await this.entityService.createEntity(req.body);
+        res.status(201).json(entity);
+      } catch (err) {
+        next(err);
+      }
     })
-    .get(`${this.path}/:id`, (req, res) => {
-      const id = req.params.id;
-      Entity.findById(id, (err, entity) => {
-        if (err) {
-          res.status(500).json({ error: `${err}` });
-        } else {
-          res.json(entity);
-        }
-      });
+
+    .get(`${this.path}/:id`, async (req, res, next) => {
+      try {
+        const entity = await this.entityService.getEntity(req.params.id);
+        res.json(entity);
+      } catch (err) {
+        next(err);
+      }
     })
-    .put(`${this.path}/:id`, (req, res) => {
-      const id = req.params.id;
-      Entity.findById(id, (err, entity) => {
-        if (err) {
-          res.status(500).json({ error: `${err}` });
-        } else {
-          entity.name = req.body.name;
-          entity.save().then(ent => {
-            res.json(ent);
-          });
-        }
-      });
+
+    .put(`${this.path}/:id`, async (req, res, next) => {
+      try {
+        const entity = await this.entityService.updateEntity(req.params.id, req.body.name);
+        res.json(entity);
+      } catch (err) {
+        next(err);
+      }
     })
-    .delete(`${this.path}/:id`, (req, res) => {
-      const id = req.params.id;
-      Entity.findByIdAndRemove(id, (err, entity) => {
-        if (err) {
-          res.status(500).json({ error: `${err}` });
-        } else {
-          res.json({ message: 'entity deleted' });
-        }
-      });
+
+    .delete(`${this.path}/:id`, async (req, res, next) => {
+      try {
+        await this.entityService.deleteEntity(req.params.id);
+        res.json({ message: 'entity deleted' });
+      } catch (err) {
+        next(err);
+      }
     });
   }
 }

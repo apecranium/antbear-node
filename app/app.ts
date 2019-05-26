@@ -1,4 +1,5 @@
 import express from 'express';
+import ErrorHandler from './exceptions/errorhandler';
 import IController from './interfaces/icontroller';
 
 export default class App {
@@ -13,6 +14,8 @@ export default class App {
     controllers.forEach(controller => {
       this.app.use('/', controller.router);
     });
+
+    this.app.use(ErrorHandler);
   }
 
   public listen() {
