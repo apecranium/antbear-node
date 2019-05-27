@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 import ErrorHandler from './exceptions/errorhandler';
 import IController from './interfaces/icontroller';
 
@@ -10,6 +11,7 @@ export default class App {
     this.app = express();
     this.port = port;
     this.app.use(express.json());
+    this.app.use(morgan('dev'));
 
     controllers.forEach(controller => {
       this.app.use('/', controller.router);

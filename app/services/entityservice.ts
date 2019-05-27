@@ -6,7 +6,7 @@ export default class EntityService {
 
   public async getEntities() {
     let entities: IEntity[];
-    await Entity.find((err, ents) => {
+    await Entity.find({}, 'name', (err, ents) => {
       if (err) {
         throw new HttpException(500, err);
       } else {
