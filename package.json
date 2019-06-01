@@ -1,5 +1,5 @@
 {
-  "name": "ts-express",
+  "name": "galaxy-express",
   "version": "0.1.1",
   "main": "dist/startup.js",
   "scripts": {

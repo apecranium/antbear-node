@@ -1,4 +1,4 @@
-# ts-express
+# galaxy-express
 
 express api using mongodb+mongoose and written in typescript
 
