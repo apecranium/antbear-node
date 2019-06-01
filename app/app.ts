@@ -6,6 +6,7 @@ import IController from './interfaces/icontroller';
 export default class App {
   public app: express.Application;
   public port: number;
+  public path = '/api';
 
   constructor(port: number, controllers: IController[]) {
     this.app = express();
@@ -14,7 +15,7 @@ export default class App {
     this.app.use(morgan('dev'));
 
     controllers.forEach(controller => {
-      this.app.use('/', controller.router);
+      this.app.use(this.path, controller.router);
     });
 
     this.app.use(ErrorHandler);

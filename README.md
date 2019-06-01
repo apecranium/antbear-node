@@ -1,6 +1,6 @@
 # ts-express
 
-express, typescript, and mongo web api
+express api using mongodb+mongoose and written in typescript
 
 **install:**
 ```shell
@@ -21,3 +21,19 @@ yarn run dev
 ```shell
 yarn run start
 ```
+
+**to create an entity:**
+```shell
+curl -X "POST" http://localhost:8080/api/entities -H "Content-Type: application/json" -d '{\"name\":\"Margaret\"}'
+```
+
+**to get entities:**
+```shell
+curl http://localhost:8080/api/entities
+```
+
+**todo:**
+- authentication using jwt
+- automated tests
+- refactor services to use data transfer objects
+- refactor/expand error handler

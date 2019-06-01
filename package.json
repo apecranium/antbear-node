@@ -1,10 +1,10 @@
 {
   "name": "ts-express",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/startup.js",
   "scripts": {
     "dev": "nodemon",
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "prebuild": "tslint -c tslint.json -p tsconfig.json",
     "build": "tsc",
     "prestart": "yarn run build",
     "start": "node ."
