@@ -47,7 +47,7 @@ export default class EntityController implements IController {
     .delete(`${this.path}/:id`, async (req, res, next) => {
       try {
         await this.entityService.deleteEntity(req.params.id);
-        res.json({ message: 'entity deleted' });
+        res.json({ message: `entity ${req.params.id} deleted` });
       } catch (err) {
         next(err);
       }

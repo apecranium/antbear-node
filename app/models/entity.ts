@@ -1,4 +1,4 @@
-import { Model, model, Schema } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 import IEntity from '../interfaces/ientity';
 
 const EntitySchema: Schema = new Schema(
@@ -6,6 +6,6 @@ const EntitySchema: Schema = new Schema(
   { timestamps: true }
 );
 
-const Entity: Model<IEntity> = model<IEntity>('Entity', EntitySchema);
+const EntityModel = model<IEntity & Document>('Entity', EntitySchema);
 
-export default Entity;
+export default EntityModel;
