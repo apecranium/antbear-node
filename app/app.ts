@@ -1,14 +1,14 @@
+import { ErrorHandler } from '@app/exceptions/errorhandler';
+import { Controller } from '@app/shared/controller';
 import express from 'express';
 import morgan from 'morgan';
-import ErrorHandler from './exceptions/errorhandler';
-import IController from './interfaces/icontroller';
 
-export default class App {
+export class App {
   public app: express.Application;
   public port: number;
   public path = '/api';
 
-  constructor(port: number, controllers: IController[]) {
+  constructor(port: number, controllers: Controller[]) {
     this.app = express();
     this.port = port;
     this.app.use(express.json());

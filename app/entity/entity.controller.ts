@@ -1,8 +1,8 @@
+import { EntityService } from '@app/entity';
+import { Controller } from '@app/shared/controller';
 import { Router } from 'express';
-import IController from '../interfaces/icontroller';
-import EntityService from '../services/entityservice';
 
-export default class EntityController implements IController {
+export class EntityController implements Controller {
   public path = '/entities';
   public router = Router();
   private entityService = new EntityService();

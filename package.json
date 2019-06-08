@@ -1,16 +1,19 @@
 {
   "name": "galaxy-express",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/startup.js",
   "scripts": {
     "dev": "nodemon",
     "prebuild": "tslint -c tslint.json -p tsconfig.json",
     "build": "tsc",
     "prestart": "yarn run build",
-    "start": "node ."
+    "start": "node -r module-alias/register ."
   },
   "author": "Ryan Wildes <rwildes@protonmail.com>",
   "license": "MIT",
+  "_moduleAliases": {
+    "@app": "./dist"
+  },
   "dependencies": {
     "express": "^4.17.0",
     "mongoose": "^5.5.11",
@@ -21,6 +24,7 @@
     "@types/mongoose": "^5.5.3",
     "@types/morgan": "^1.7.35",
     "@types/node": "^12.0.2",
+    "module-alias": "^2.2.0",
     "nodemon": "^1.19.1",
     "ts-node": "^8.1.1",
     "tslint": "^5.16.0",

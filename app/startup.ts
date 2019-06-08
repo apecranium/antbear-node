@@ -1,12 +1,9 @@
-import mongoose from 'mongoose';
-import App from './app';
-import Config from './config';
-import EntityController from './controllers/entitycontroller';
+import { App } from '@app/app';
+import Config from '@app/config';
+import { Database } from '@app/database';
+import { EntityController } from '@app/entity';
 
-mongoose.connect(`${Config.DB_CONNECTION}/${Config.DB_NAME}`, { useNewUrlParser: true }).then(
-  () => { console.log('connected to database'); },
-  err => { console.log(`error connecting to database: ${err}`); }
-);
+const db = new Database();
 
 const app = new App(
   Config.APP_PORT,
@@ -15,4 +12,5 @@ const app = new App(
   ]
 );
 
+db.connect();
 app.listen();

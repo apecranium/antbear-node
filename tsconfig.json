@@ -5,6 +5,10 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["app/*"]
+    }
   },
   "include": [
     "app/**/*"
