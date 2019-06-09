@@ -1,7 +1,7 @@
 import { Entity } from '@app/entity';
 
 export class EntityResource implements Entity {
-  public id: string;
+  public id?: string;
   public name: string;
 
   constructor(ent: Entity) {
