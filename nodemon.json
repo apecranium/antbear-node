@@ -1,5 +1,5 @@
 {
   "watch": ["app"],
   "ext": "ts",
-  "exec": "ts-node -r module-alias/register ./app/startup.ts"
+  "exec": "ts-node -r tsconfig-paths/register ./app/startup.ts"
 }

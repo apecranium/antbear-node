@@ -1,7 +1,6 @@
 import { EntityService } from '@app/entity';
 import { Controller } from '@app/shared/controller';
 import { Router } from 'express';
-import { EntityResource } from './entity.resource';
 
 export class EntityController implements Controller {
   public path = '/entities';
@@ -20,7 +19,7 @@ export class EntityController implements Controller {
 
     .post(this.path, async (req, res, next) => {
       try {
-        const entity = await this.entityService.createEntity(new EntityResource(req.body));
+        const entity = await this.entityService.createEntity({ name: req.body.name });
         res.status(201).json(entity);
       } catch (err) {
         next(err);
