@@ -1,4 +1,4 @@
-import { ErrorHandler } from '@app/exceptions/errorhandler';
+import { ErrorHandler } from '@app/errorhandler';
 import { Controller } from '@app/shared/controller';
 import express from 'express';
 import morgan from 'morgan';

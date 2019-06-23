@@ -1,6 +1,7 @@
 import { EntityService } from '@app/entity';
 import { Controller } from '@app/shared/controller';
 import { Router } from 'express';
+import { EntityResource } from './entity.resource';
 
 export class EntityController implements Controller {
   public path = '/entities';
@@ -19,7 +20,7 @@ export class EntityController implements Controller {
 
     .post(this.path, async (req, res, next) => {
       try {
-        const entity = await this.entityService.createEntity(req.body);
+        const entity = await this.entityService.createEntity(new EntityResource(req.body));
         res.status(201).json(entity);
       } catch (err) {
         next(err);
@@ -47,7 +48,7 @@ export class EntityController implements Controller {
     .delete(`${this.path}/:id`, async (req, res, next) => {
       try {
         await this.entityService.deleteEntity(req.params.id);
-        res.json({ message: `entity ${req.params.id} deleted` });
+        res.json({ message: `Entity ${req.params.id} deleted.` });
       } catch (err) {
         next(err);
       }

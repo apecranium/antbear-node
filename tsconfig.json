@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "noImplicitAny": true,
+    "strict": true,
     "moduleResolution": "node",
     "outDir": "dist",
     "baseUrl": ".",
@@ -11,7 +11,6 @@
     }
   },
   "include": [
-    "app/**/*",
-    "test/**/*"
+    "app/**/*"
   ]
 }
