@@ -14,9 +14,9 @@ export class App {
     this.app.use(express.json());
     this.app.use(morgan('dev'));
 
-    controllers.forEach(controller => {
+    for (const controller of controllers) {
       this.app.use(this.path, controller.router);
-    });
+    }
 
     this.app.use(ErrorHandler);
   }

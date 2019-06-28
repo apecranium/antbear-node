@@ -10,4 +10,12 @@ export class Database {
       console.log(`error connecting to database: ${err}`);
     }
   }
+
+  public async disconnect() {
+    try {
+      await mongoose.connection.close();
+    } catch (err) {
+      console.log(`error disconnecting from database: ${err}`);
+    }
+  }
 }
