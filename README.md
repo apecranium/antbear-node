@@ -2,6 +2,8 @@
 
 express api using mongodb+mongoose and written in typescript
 
+this app is mostly an exercise to demonstrate different things i'm learning in 2019 (e.g. typescript, mongo), and not for production anywhere. please feel free to reach out if you find anything interesting.
+
 **install:**
 ```shell
 yarn
@@ -37,3 +39,4 @@ curl http://localhost:8080/api/entities
 - automated tests
 - refactor services to use data transfer objects
 - refactor/expand error handler
+- explore postgres+typeorm as database layer
