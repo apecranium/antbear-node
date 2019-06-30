@@ -1,3 +1,4 @@
+import { Config } from '@app/config';
 import { ErrorHandler } from '@app/errorhandler';
 import { Controller } from '@app/shared/controller';
 import express from 'express';
@@ -8,11 +9,11 @@ export class App {
   public port: number;
   public path = '/api';
 
-  constructor(port: number, controllers: Controller[]) {
+  constructor(env: Config, controllers: Controller[]) {
     this.app = express();
-    this.port = port;
+    this.port = env.APP_PORT;
     this.app.use(express.json());
-    this.app.use(morgan('dev'));
+    this.app.use(morgan(env.LOGGING));
 
     for (const controller of controllers) {
       this.app.use(this.path, controller.router);

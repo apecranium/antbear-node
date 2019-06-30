@@ -6,10 +6,10 @@ import { UserController } from '@app/user';
 
 const env = Environment.DEV;
 const db = new Database(env);
-const app = new App(env.APP_PORT,
+const app = new App(env,
   [
     new EntityController(),
-    new UserController()
+    new UserController(env)
   ]
 );
 
