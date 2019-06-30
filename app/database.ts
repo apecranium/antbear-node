@@ -1,10 +1,14 @@
-import Config from '@app/config';
+import { Config } from '@app/config';
 import mongoose from 'mongoose';
 
 export class Database {
+  constructor(private readonly env: Config) {
+  }
+
   public async connect() {
     try {
-      await mongoose.connect(`${Config.DB_CONNECTION}/${Config.DB_NAME}`, { useNewUrlParser: true, family: 4 });
+      await mongoose.connect(`${this.env.DB_CONNECTION}/${this.env.DB_NAME}`,
+                              { useNewUrlParser: true, family: 4 });
       console.log('connected to database');
     } catch (err) {
       console.log(`error connecting to database: ${err}`);
@@ -16,6 +20,14 @@ export class Database {
       await mongoose.connection.close();
     } catch (err) {
       console.log(`error disconnecting from database: ${err}`);
+    }
+  }
+
+  public async dropDatabase() {
+    try {
+      await mongoose.connection.dropDatabase();
+    } catch (err) {
+      console.log(`error dropping database: ${err}`);
     }
   }
 }
