@@ -16,12 +16,12 @@ mongod --dbpath="./data"
 
 **for hot restart with nodemon and ts-node:**
 ```shell
-yarn run dev
+yarn dev
 ```
 
 **to compile and run:**
 ```shell
-yarn run start
+yarn start
 ```
 
 **to create an entity:**

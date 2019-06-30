@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "prebuild": "tslint -p tsconfig.json",
     "build": "tsc",
-    "prestart": "yarn run build",
+    "prestart": "yarn build",
     "start": "node -r module-alias/register ."
   },
   "author": "Ryan Wildes <rwildes@protonmail.com>",
