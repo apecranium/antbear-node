@@ -1,6 +1,6 @@
 import { Config } from '@app/config';
 import { Controller } from '@app/shared/controller';
-import { TokenVerifier } from '@app/tokenverifier';
+import { TokenVerifier } from '@app/shared/tokenverifier';
 import { UserData, UserModel, UserService } from '@app/user';
 import { Router } from 'express';
 

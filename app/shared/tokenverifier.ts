@@ -1,4 +1,3 @@
-import { Config } from '@app/config';
 import { HttpError } from '@app/shared/httperror';
 import { UserModel } from '@app/user';
 import { NextFunction, Request, Response } from 'express';
@@ -6,6 +5,7 @@ import { verify } from 'jsonwebtoken';
 
 export interface TokenData {
   id: string;
+  iat: number;
   exp: number;
 }
 
