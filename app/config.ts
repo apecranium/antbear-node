@@ -4,7 +4,7 @@ export interface Config {
   DB_NAME: string;
   LOGGING: string;
   SECRET_KEY: string;
-  TOKEN_EXPIRY: number;
+  TOKEN_EXPIRY: string;
 }
 
 export const Environment = {
@@ -14,7 +14,7 @@ export const Environment = {
     DB_NAME: 'ts-express',
     LOGGING: 'dev',
     SECRET_KEY: 'secret',
-    TOKEN_EXPIRY: 3600
+    TOKEN_EXPIRY: '1h'
   } as Config,
   TEST: {
     APP_PORT: 8080,
@@ -22,6 +22,6 @@ export const Environment = {
     DB_NAME: 'tsexp-test',
     LOGGING: 'dev',
     SECRET_KEY: 'secret',
-    TOKEN_EXPIRY: 3600
+    TOKEN_EXPIRY: '1h'
   } as Config
 };

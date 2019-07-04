@@ -5,26 +5,26 @@ import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 
 export interface TokenData {
-  _id: string;
+  id: string;
+  exp: number;
 }
 
 export class TokenVerifier {
-  constructor(private secret: string) {
+  constructor(private readonly secret: string) {
   }
 
-  public async verify(req: Request, res: Response, next: NextFunction) {
+  public verify = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.headers['x-access-token'] as string;
       if (!token) {
         throw new HttpError(403, 'No token provided.');
       }
-      const tokenData = await verify(token, this.secret) as TokenData; // can't read secret for some reason
-      const id = tokenData._id;
-      const user = await UserModel.findById(id);
+      const tokenData = await verify(token, this.secret) as TokenData;
+      const user = await UserModel.findById(tokenData.id);
       if (!user) {
         throw new HttpError(401, 'Unable to verify token.');
       }
-      res.locals.user = user;
+      res.locals.tokenData = tokenData;
       next();
     } catch (err) {
       next(err);

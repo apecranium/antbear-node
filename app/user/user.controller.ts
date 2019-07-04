@@ -7,8 +7,8 @@ import { Router } from 'express';
 export class UserController implements Controller {
   public path = '/user';
   public router = Router();
+  public tokenVerifier: TokenVerifier;
   private userService: UserService;
-  private tokenVerifier: TokenVerifier;
 
   constructor(env: Config) {
     this.userService = new UserService(env);
@@ -34,12 +34,13 @@ export class UserController implements Controller {
       }
     })
 
-    .get(`${this.path}/identity`, this.tokenVerifier.verify, async (req, res, next) => {
-      const user = await UserModel.findById(res.locals.user.id);
-      if (!user) {
-        res.status(400).json({ authenticated: false });
-      } else {
-        res.status(200).json({ authenticated: true, name: user.name });
+    .get(`${this.path}/identify`, this.tokenVerifier.verify, async (req, res, next) => {
+      try {
+        const user = await this.userService.getUser(res.locals.tokenData.id);
+        const expiry = new Date(res.locals.tokenData.exp * 1000).toTimeString();
+        res.status(200).json({ authenticated: true, name: user.name, expiresAt: expiry });
+      } catch (err) {
+        next(err);
       }
     });
   }
