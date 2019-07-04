@@ -14,6 +14,9 @@ export class UserService {
   }
 
   public async registerUser(userdata: User) {
+    if (await UserModel.findOne({ email: userdata.email })) {
+      throw new HttpError(400, 'A user with that email already exists.');
+    }
     const hashedPassword = await hash(userdata.password, 10);
     const user = await UserModel.create({
       email: userdata.email,
@@ -29,7 +32,8 @@ export class UserService {
     if (!user) {
       throw new HttpError(404, 'User not found.');
     }
-    if (await !compare(userdata.password, user.password)) {
+    const match = await compare(userdata.password, user.password);
+    if (!match) {
       throw new HttpError(401, 'Authentication failed.');
     }
     const token = sign({ id: user.id }, this.secret, { expiresIn: this.expiry });

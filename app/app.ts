@@ -19,7 +19,7 @@ export class App {
       this.app.use(this.path, controller.router);
     }
 
-    this.app.use(ErrorHandler);
+    this.app.use(new ErrorHandler().Handle);
   }
 
   public listen() {
