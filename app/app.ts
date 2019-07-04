@@ -5,12 +5,11 @@ import express from 'express';
 import morgan from 'morgan';
 
 export class App {
-  public app: express.Application;
+  public app = express();
   public port: number;
   public path = '/api';
 
   constructor(env: Config, controllers: Controller[]) {
-    this.app = express();
     this.port = env.APP_PORT;
     this.app.use(express.json());
     this.app.use(morgan(env.LOGGING));

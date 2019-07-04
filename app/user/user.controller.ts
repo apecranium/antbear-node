@@ -1,48 +1,55 @@
-import { Config } from '@app/config';
 import { Controller } from '@app/shared/controller';
-import { TokenVerifier } from '@app/shared/tokenverifier';
-import { UserData, UserModel, UserService } from '@app/user';
+import { UserData, UserService } from '@app/user';
 import { Router } from 'express';
 
 export class UserController implements Controller {
-  public path = '/user';
+  public path = '/users';
   public router = Router();
-  public tokenVerifier: TokenVerifier;
-  private userService: UserService;
+  private userService = new UserService();
 
-  constructor(env: Config) {
-    this.userService = new UserService(env);
-    this.tokenVerifier = new TokenVerifier(env.SECRET_KEY);
+  constructor() {
+    this.router.route(this.path)
+      .get(async (req, res, next) => {
+        try {
+          const users = await this.userService.getUsers();
+          res.json(users);
+        } catch (err) {
+          next(err);
+        }
+      })
+      .post(async (req, res, next) => {
+        try {
+          const user = await this.userService.createUser(new UserData(req.body.email, req.body.name));
+          res.status(201).json(user);
+        } catch (err) {
+          next(err);
+        }
+      });
 
-    this.router.post(`${this.path}/register`, async (req, res, next) => {
-      try {
-        const userdata = new UserData(req.body.email, req.body.name, req.body.password);
-        const token = await this.userService.registerUser(userdata);
-        res.json({ authenticated: true, token });
-      } catch (err) {
-        next(err);
-      }
-    })
-
-    .post(`${this.path}/login`, async (req, res, next) => {
-      try {
-        const userdata = new UserData(req.body.email, req.body.name, req.body.password);
-        const token = await this.userService.loginUser(userdata);
-        res.json({ authenticated: true, token });
-      } catch (err) {
-        next(err);
-      }
-    })
-
-    .get(`${this.path}/identify`, this.tokenVerifier.verify, async (req, res, next) => {
-      try {
-        const user = await this.userService.getUser(res.locals.tokenData.id);
-        const issuedAt = new Date(res.locals.tokenData.iat * 1000).toString();
-        const expiresAt = new Date(res.locals.tokenData.exp * 1000).toString();
-        res.status(200).json({ authenticated: true, name: user.name, issuedAt, expiresAt });
-      } catch (err) {
-        next(err);
-      }
-    });
+    this.router.route(`${this.path}/:id`)
+      .get(async (req, res, next) => {
+        try {
+          const user = await this.userService.getUser(req.params.id);
+          res.json(user);
+        } catch (err) {
+          next(err);
+        }
+      })
+      .put(async (req, res, next) => {
+        try {
+          const user = await this.userService.updateUser(new UserData(req.body.email, req.body.name, req.params.id));
+          res.json(user);
+        } catch (err) {
+          next(err);
+        }
+      })
+      .delete(async (req, res, next) => {
+        try {
+          await this.userService.deleteUser(req.params.id);
+          res.json({ message: `User ${req.params.id} deleted.` });
+        } catch (err) {
+          next(err);
+        }
+      });
   }
 }

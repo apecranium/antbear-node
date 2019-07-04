@@ -5,7 +5,7 @@ export class EntityService {
 
   public async getEntities(): Promise<Entity[]> {
     const entities = new Array<EntityData>();
-    const ents = await EntityModel.find({}, 'name');
+    const ents = await EntityModel.find();
     for (const ent of ents) {
       entities.push(new EntityData(ent.id, ent.name));
     }
