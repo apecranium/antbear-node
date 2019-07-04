@@ -35,8 +35,8 @@ curl http://localhost:8080/api/entities
 ```
 
 **todo:**
-- authentication using jwt
+- ~~authentication using jwt~~
 - automated tests
-- refactor services to use data transfer objects
-- refactor/expand error handler
+- ~~refactor services to use data transfer objects~~
+- ~~refactor/expand error handler~~
 - explore postgres+typeorm as database layer
