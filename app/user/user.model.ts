@@ -1,11 +1,15 @@
 import { User } from '@app/user';
 import { Document, model, Schema } from 'mongoose';
 
+export const CredentialsSchema = new Schema({
+  email: String,
+  password: String
+});
+
 export const UserSchema = new Schema(
   {
-    email: String,
     name: String,
-    password: String
+    credentials: CredentialsSchema
   },
   { timestamps: true }
 );

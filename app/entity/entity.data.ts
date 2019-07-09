@@ -1,6 +1,11 @@
 import { Entity } from '@app/entity';
 
 export class EntityData implements Entity {
-  constructor(public id: string = '', public name: string = '') {
+  public id: string;
+  public name: string;
+
+  constructor(entity: Entity) {
+    this.id = entity.id || '';
+    this.name = entity.name || '';
   }
 }

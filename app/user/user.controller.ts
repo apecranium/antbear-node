@@ -19,7 +19,8 @@ export class UserController implements Controller {
       })
       .post(async (req, res, next) => {
         try {
-          const user = await this.userService.createUser(new UserData(req.body.email, req.body.name));
+          const userData = { name: req.body.name, credentials: { email: req.body.email, password: req.body.password }};
+          const user = await this.userService.createUser(userData);
           res.status(201).json(user);
         } catch (err) {
           next(err);
@@ -37,7 +38,7 @@ export class UserController implements Controller {
       })
       .put(async (req, res, next) => {
         try {
-          const user = await this.userService.updateUser(new UserData(req.body.email, req.body.name, req.params.id));
+          const user = await this.userService.updateUser({ id: req.params.id, name: req.body.name, credentials: {}});
           res.json(user);
         } catch (err) {
           next(err);

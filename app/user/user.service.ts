@@ -4,10 +4,10 @@ import { User, UserData, UserModel } from '@app/user';
 export class UserService {
 
   public async getUsers(): Promise<User[]> {
-    const userList = new Array<UserData>();
+    const userList = new Array<User>();
     const users = await UserModel.find();
     for (const user of users) {
-      userList.push(new UserData(user.email, user.name, user.id));
+      userList.push(new UserData(user));
     }
     return userList;
   }
@@ -15,7 +15,7 @@ export class UserService {
   public async createUser(u: User): Promise<User> {
     const user = new UserModel(u);
     await user.save();
-    return new UserData(user.email, user.name, user.id);
+    return new UserData(user);
   }
 
   public async getUser(id: string): Promise<User> {
@@ -23,7 +23,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(404, 'User not found.');
     }
-    return new UserData(user.email, user.name, user.id);
+    return new UserData(user);
   }
 
   public async updateUser(u: User): Promise<User> {
@@ -31,10 +31,10 @@ export class UserService {
     if (!user) {
       throw new HttpError(404, 'User not found.');
     }
-    user.email = u.email ? u.email : user.email;
+    user.credentials.email = u.credentials.email ? u.credentials.email : user.credentials.email;
     user.name = u.name ? u.name : user.name;
     await user.save();
-    return new UserData(user.email, user.name, user.id);
+    return new UserData(user);
   }
 
   public async deleteUser(id: string): Promise<User> {
@@ -43,6 +43,6 @@ export class UserService {
       throw new HttpError(404, 'User not found.');
     }
     await user.remove();
-    return new UserData(user.email, user.name, user.id);
+    return new UserData(user);
   }
 }

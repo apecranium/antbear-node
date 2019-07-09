@@ -19,7 +19,7 @@ export class EntityController implements Controller {
       })
       .post(async (req, res, next) => {
         try {
-          const entity = await this.entityService.createEntity(new EntityData(req.body.id, req.body.name));
+          const entity = await this.entityService.createEntity({ id: req.body.id, name: req.body.name });
           res.status(201).json(entity);
         } catch (err) {
           next(err);
@@ -37,7 +37,7 @@ export class EntityController implements Controller {
       })
       .put(async (req, res, next) => {
         try {
-          const entity = await this.entityService.updateEntity(new EntityData(req.params.id, req.body.name));
+          const entity = await this.entityService.updateEntity({ id: req.params.id, name: req.body.name });
           res.json(entity);
         } catch (err) {
           next(err);

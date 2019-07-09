@@ -1,4 +1,4 @@
-import { AuthenticationData, AuthenticationService } from '@app/authentication';
+import { AuthenticationService } from '@app/authentication';
 import { Config } from '@app/config';
 import { Controller } from '@app/shared/controller';
 import { TokenVerifier } from '@app/shared/tokenverifier';
@@ -18,8 +18,8 @@ export class AuthenticationController implements Controller {
 
     this.router.post(`${this.path}/register`, async (req, res, next) => {
       try {
-        const authData = new AuthenticationData(req.body.email, req.body.password);
-        const token = await this.authService.registerUser(authData);
+        const userData = { name: req.body.name, credentials: { email: req.body.email, password: req.body.password }};
+        const token = await this.authService.registerUser(userData);
         res.json({ authenticated: true, token });
       } catch (err) {
         next(err);
@@ -28,7 +28,7 @@ export class AuthenticationController implements Controller {
 
     .post(`${this.path}/login`, async (req, res, next) => {
       try {
-        const userData = new AuthenticationData(req.body.email, req.body.password);
+        const userData = { credentials: { email: req.body.email, password: req.body.password }};
         const token = await this.authService.loginUser(userData);
         res.json({ authenticated: true, token });
       } catch (err) {
@@ -41,7 +41,7 @@ export class AuthenticationController implements Controller {
         const user = await this.userService.getUser(res.locals.tokenData.id);
         const issuedAt = new Date(res.locals.tokenData.iat * 1000).toString();
         const expiresAt = new Date(res.locals.tokenData.exp * 1000).toString();
-        res.status(200).json({ authenticated: true, user, issuedAt, expiresAt });
+        res.json({ authenticated: true, user, issuedAt, expiresAt });
       } catch (err) {
         next(err);
       }

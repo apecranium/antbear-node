@@ -7,7 +7,7 @@ export class EntityService {
     const entities = new Array<EntityData>();
     const ents = await EntityModel.find();
     for (const ent of ents) {
-      entities.push(new EntityData(ent.id, ent.name));
+      entities.push(new EntityData(ent));
     }
     return entities;
   }
@@ -15,7 +15,7 @@ export class EntityService {
   public async createEntity(ent: Entity): Promise<Entity> {
     const entity = new EntityModel(ent);
     await entity.save();
-    return new EntityData(entity.id, entity.name);
+    return new EntityData(entity);
   }
 
   public async getEntity(id: string): Promise<Entity> {
@@ -23,7 +23,7 @@ export class EntityService {
     if (!entity) {
       throw new HttpError(404, 'Entity not found.');
     }
-    return new EntityData(entity.id, entity.name);
+    return new EntityData(entity);
   }
 
   public async updateEntity(ent: Entity): Promise<Entity> {
@@ -33,7 +33,7 @@ export class EntityService {
     }
     entity.name = ent.name;
     await entity.save();
-    return new EntityData(entity.id, entity.name);
+    return new EntityData(entity);
   }
 
   public async deleteEntity(id: string): Promise<Entity> {
@@ -42,6 +42,6 @@ export class EntityService {
       throw new HttpError(404, 'Entity not found.');
     }
     await entity.remove();
-    return new EntityData(entity.id, entity.name);
+    return new EntityData(entity);
   }
 }

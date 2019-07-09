@@ -18,7 +18,7 @@ export class App {
       this.app.use(this.path, controller.router);
     }
 
-    this.app.use(new ErrorHandler().Handle);
+    this.app.use(new ErrorHandler().handle);
   }
 
   public listen() {
