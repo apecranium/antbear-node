@@ -1,6 +1,6 @@
 {
   "name": "galaxy-express",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "dist/startup.js",
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register node_modules/tape/bin/tape test/**/*.ts | tap-spec",
@@ -10,7 +10,7 @@
     "prestart": "yarn build",
     "start": "node -r module-alias/register ."
   },
-  "author": "Ryan Wildes <rwildes@protonmail.com>",
+  "author": "Ryan Wildes <hello@ryanwildes.com>",
   "license": "MIT",
   "_moduleAliases": {
     "@app": "./dist"
