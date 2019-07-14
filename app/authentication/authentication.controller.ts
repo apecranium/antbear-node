@@ -1,20 +1,20 @@
 import { AuthenticationService } from '@app/authentication';
 import { Config } from '@app/config';
 import { Controller } from '@app/shared/controller';
-import { TokenVerifier } from '@app/shared/tokenverifier';
-import { UserService } from '@app/user';
+import { CryptoService } from '@app/shared/crypto.service';
+import { Credentials, UserService } from '@app/user';
 import { Router } from 'express';
 
 export class AuthenticationController implements Controller {
   public path = '/auth';
   public router = Router();
-  public tokenVerifier: TokenVerifier;
+  private cryptoService: CryptoService;
   private authService: AuthenticationService;
   private userService = new UserService();
 
   constructor(env: Config) {
-    this.authService = new AuthenticationService(env);
-    this.tokenVerifier = new TokenVerifier(env.SECRET_KEY);
+    this.cryptoService = new CryptoService(env);
+    this.authService = new AuthenticationService(this.cryptoService);
 
     this.router.post(`${this.path}/register`, async (req, res, next) => {
       try {
@@ -28,15 +28,15 @@ export class AuthenticationController implements Controller {
 
     .post(`${this.path}/login`, async (req, res, next) => {
       try {
-        const userData = { credentials: { email: req.body.email, password: req.body.password }};
-        const token = await this.authService.loginUser(userData);
+        const credentials = { email: req.body.email, password: req.body.password };
+        const token = await this.authService.loginUser(credentials);
         res.json({ authenticated: true, token });
       } catch (err) {
         next(err);
       }
     })
 
-    .get(`${this.path}/identify`, this.tokenVerifier.verify, async (req, res, next) => {
+    .get(`${this.path}/identify`, this.cryptoService.verify, async (req, res, next) => {
       try {
         const user = await this.userService.getUser(res.locals.tokenData.id);
         const issuedAt = new Date(res.locals.tokenData.iat * 1000).toString();
