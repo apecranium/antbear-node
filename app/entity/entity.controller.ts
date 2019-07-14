@@ -1,5 +1,5 @@
-import { EntityData, EntityService } from '@app/entity';
-import { Controller } from '@app/shared/controller';
+import { EntityService } from '@app/entity';
+import { Controller } from '@app/shared';
 import { Router } from 'express';
 
 export class EntityController implements Controller {

@@ -1,5 +1,5 @@
 import { Entity, EntityData, EntityModel } from '@app/entity';
-import { HttpError } from '@app/shared/httperror';
+import { HttpError } from '@app/shared';
 
 export class EntityService {
 

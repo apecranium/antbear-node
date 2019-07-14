@@ -1,8 +1,7 @@
 import { AuthenticationService } from '@app/authentication';
 import { Config } from '@app/config';
-import { Controller } from '@app/shared/controller';
-import { CryptoService } from '@app/shared/crypto.service';
-import { Credentials, UserService } from '@app/user';
+import { Controller, CryptoService } from '@app/shared';
+import { UserService } from '@app/user';
 import { Router } from 'express';
 
 export class AuthenticationController implements Controller {

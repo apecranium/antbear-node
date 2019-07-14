@@ -1,4 +1,4 @@
-import { HttpError } from '@app/shared/httperror';
+import { HttpError } from '@app/shared';
 import { User, UserData, UserModel } from '@app/user';
 
 export class UserService {

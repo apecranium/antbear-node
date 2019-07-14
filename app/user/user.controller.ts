@@ -1,5 +1,5 @@
-import { Controller } from '@app/shared/controller';
-import { UserData, UserService } from '@app/user';
+import { Controller } from '@app/shared';
+import { UserService } from '@app/user';
 import { Router } from 'express';
 
 export class UserController implements Controller {

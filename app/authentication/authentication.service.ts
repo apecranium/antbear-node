@@ -1,5 +1,4 @@
-import { CryptoService } from '@app/shared/crypto.service';
-import { HttpError } from '@app/shared/httperror';
+import { CryptoService, HttpError } from '@app/shared';
 import { Credentials, User, UserModel } from '@app/user';
 
 export class AuthenticationService {
@@ -36,7 +35,7 @@ export class AuthenticationService {
     if (!match) {
       throw new HttpError(401, 'Authentication failed.');
     }
-    const token = this.cryptoService.sign({ id: user.id });
+    const token = await this.cryptoService.sign({ id: user.id });
     return token;
   }
 }

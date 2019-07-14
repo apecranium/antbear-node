@@ -1,4 +1,4 @@
-import { HttpError } from '@app/shared/httperror';
+import { HttpError } from '@app/shared';
 import { NextFunction, Request, Response } from 'express';
 
 export class ErrorHandler {

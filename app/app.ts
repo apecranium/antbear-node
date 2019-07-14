@@ -1,6 +1,5 @@
 import { Config } from '@app/config';
-import { Controller } from '@app/shared/controller';
-import { ErrorHandler } from '@app/shared/errorhandler';
+import { Controller, ErrorHandler } from '@app/shared';
 import express from 'express';
 import morgan from 'morgan';
 

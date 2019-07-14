@@ -1,5 +1,5 @@
 import { Config } from '@app/config';
-import { HttpError } from '@app/shared/httperror';
+import { HttpError } from '@app/shared';
 import { UserModel } from '@app/user';
 import { compare, hash } from 'bcryptjs';
 import { NextFunction, Request, Response } from 'express';
