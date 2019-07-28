@@ -13,6 +13,10 @@ export class App {
     this.app.use(express.json());
     this.app.use(morgan(Config.env.log));
 
+    this.app.get('/', (req, res) => {
+      res.json({ message: 'Hello, welcome to my API!' });
+    });
+
     for (const controller of controllers) {
       this.app.use(this.path, controller.router);
     }
