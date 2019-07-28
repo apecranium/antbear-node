@@ -1,11 +1,10 @@
-import { Config } from '@app/config';
 import mongoose from 'mongoose';
 
 export class Database {
   public async connect() {
     try {
-      await mongoose.connect(`${Config.env.db.connection}/${Config.env.db.name}`,
-                              { useNewUrlParser: true, family: 4 });
+      const connectionString = process.env.MONGODB_URI as string;
+      await mongoose.connect(connectionString, { useNewUrlParser: true, family: 4 });
       console.log('connected to database');
     } catch (err) {
       console.log(`error connecting to database: ${err}`);

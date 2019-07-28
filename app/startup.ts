@@ -3,6 +3,7 @@ import { AuthenticationController } from '@app/authentication';
 import { Database } from '@app/database';
 import { EntityController } from '@app/entity';
 import { UserController } from '@app/user';
+import { config } from 'dotenv';
 
 export class Startup {
   public static db = new Database();
@@ -13,6 +14,7 @@ export class Startup {
   ]);
 
   public static main() {
+    config();
     Startup.db.connect();
     Startup.app.listen();
   }

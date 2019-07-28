@@ -21,7 +21,7 @@ export class CryptoService {
   }
 
   public sign = async (payload: {}) => {
-    return await sign(payload, Config.env.secret, { expiresIn: Config.env.tokenExpiry });
+    return await sign(payload, process.env.SECRET_KEY as string, { expiresIn: Config.env.tokenExpiry });
   }
 
   public verify = async (req: Request, res: Response, next: NextFunction) => {
@@ -30,7 +30,7 @@ export class CryptoService {
       if (!token) {
         throw new HttpError(403, 'No token provided.');
       }
-      const tokenData = await verify(token, Config.env.secret) as TokenData;
+      const tokenData = await verify(token, process.env.SECRET_KEY as string) as TokenData;
       const user = await UserModel.findById(tokenData.id);
       if (!user) {
         throw new HttpError(401, 'Unable to verify token.');

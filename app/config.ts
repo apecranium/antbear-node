@@ -15,7 +15,7 @@ export interface Configuration {
 
 export class Config {
   private static cfg: Configuration;
-  private static path = './prod.config.toml';
+  private static path = './config.toml';
 
   private constructor() {}
 

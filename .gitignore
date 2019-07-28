@@ -1,4 +1,4 @@
-prod.config.toml
+.env
 data/
 dist/
 node_modules/
