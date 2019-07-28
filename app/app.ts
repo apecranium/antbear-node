@@ -9,7 +9,7 @@ export class App {
   public path = '/api';
 
   constructor(controllers: Controller[]) {
-    this.port = Config.env.port;
+    this.port = parseInt(process.env.PORT as string, 10) || Config.env.port;
     this.app.use(express.json());
     this.app.use(morgan(Config.env.log));
 
