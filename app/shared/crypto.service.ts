@@ -12,9 +12,6 @@ export interface TokenData {
 }
 
 export class CryptoService {
-  constructor(private readonly env: Config) {
-  }
-
   public compare = async (s: string, hashedString: string) => {
     return await compare(s, hashedString);
   }
@@ -24,7 +21,7 @@ export class CryptoService {
   }
 
   public sign = async (payload: {}) => {
-    return await sign(payload, this.env.SECRET_KEY, { expiresIn: this.env.TOKEN_EXPIRY });
+    return await sign(payload, Config.env.secret, { expiresIn: Config.env.tokenExpiry });
   }
 
   public verify = async (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +30,7 @@ export class CryptoService {
       if (!token) {
         throw new HttpError(403, 'No token provided.');
       }
-      const tokenData = await verify(token, this.env.SECRET_KEY) as TokenData;
+      const tokenData = await verify(token, Config.env.secret) as TokenData;
       const user = await UserModel.findById(tokenData.id);
       if (!user) {
         throw new HttpError(401, 'Unable to verify token.');

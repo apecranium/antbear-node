@@ -7,12 +7,11 @@ import { Router } from 'express';
 export class AuthenticationController implements Controller {
   public path = '/auth';
   public router = Router();
-  private cryptoService: CryptoService;
+  private cryptoService = new CryptoService();
   private authService: AuthenticationService;
   private userService = new UserService();
 
-  constructor(env: Config) {
-    this.cryptoService = new CryptoService(env);
+  constructor() {
     this.authService = new AuthenticationService(this.cryptoService);
 
     this.router.post(`${this.path}/register`, async (req, res, next) => {

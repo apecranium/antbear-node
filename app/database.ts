@@ -2,12 +2,9 @@ import { Config } from '@app/config';
 import mongoose from 'mongoose';
 
 export class Database {
-  constructor(private readonly env: Config) {
-  }
-
   public async connect() {
     try {
-      await mongoose.connect(`${this.env.DB_CONNECTION}/${this.env.DB_NAME}`,
+      await mongoose.connect(`${Config.env.db.connection}/${Config.env.db.name}`,
                               { useNewUrlParser: true, family: 4 });
       console.log('connected to database');
     } catch (err) {

@@ -1,0 +1,8 @@
+port = 8080
+log = "dev"
+secret = "secret"
+tokenExpiry = "1h"
+
+[db]
+connection = "mongodb://localhost:27017"
+name = "ts-express"

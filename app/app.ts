@@ -8,10 +8,10 @@ export class App {
   public port: number;
   public path = '/api';
 
-  constructor(env: Config, controllers: Controller[]) {
-    this.port = env.APP_PORT;
+  constructor(controllers: Controller[]) {
+    this.port = Config.env.port;
     this.app.use(express.json());
-    this.app.use(morgan(env.LOGGING));
+    this.app.use(morgan(Config.env.log));
 
     for (const controller of controllers) {
       this.app.use(this.path, controller.router);
