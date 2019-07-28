@@ -5,7 +5,8 @@
   "scripts": {
     "test": "ts-node -r tsconfig-paths/register node_modules/tape/bin/tape test/**/*.ts | tap-spec",
     "dev": "nodemon",
-    "prebuild": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json",
+    "prebuild": "yarn --production=false",
     "build": "tsc",
     "prestart": "yarn build",
     "start": "node -r module-alias/register ."

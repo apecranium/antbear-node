@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import toml from 'toml';
 
 export interface Configuration {
@@ -14,37 +13,9 @@ export interface Configuration {
   };
 }
 
-/* export interface Configuration {
-  APP_PORT: number;
-  DB_CONNECTION: string;
-  DB_NAME: string;
-  LOGGING: string;
-  SECRET_KEY: string;
-  TOKEN_EXPIRY: string;
-}
-
-export const Environment = {
-  DEV: {
-    APP_PORT: 8080,
-    DB_CONNECTION: 'mongodb://localhost:27017',
-    DB_NAME: 'ts-express',
-    LOGGING: 'dev',
-    SECRET_KEY: 'secret',
-    TOKEN_EXPIRY: '1h'
-  } as Configuration,
-  TEST: {
-    APP_PORT: 8080,
-    DB_CONNECTION: 'mongodb://localhost:27017',
-    DB_NAME: 'tsexp-test',
-    LOGGING: 'dev',
-    SECRET_KEY: 'secret',
-    TOKEN_EXPIRY: '1h'
-  } as Configuration
-}; */
-
 export class Config {
   private static cfg: Configuration;
-  private static path = path.resolve('app/config.toml');
+  private static path = './prod.config.toml';
 
   private constructor() {}
 
