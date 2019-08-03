@@ -2,10 +2,9 @@ import { EntityService } from '@app/entity';
 import { Controller } from '@app/shared';
 import { Router } from 'express';
 
-export class EntityController implements Controller {
+export class EntityApiController implements Controller {
   public path = '/entities';
   public router = Router();
-  public view = `${__dirname}/entity`;
   private entityService = new EntityService();
 
   constructor() {
@@ -13,12 +12,11 @@ export class EntityController implements Controller {
       .get(async (req, res, next) => {
         try {
           const entities = await this.entityService.getEntities();
-          res.render(this.view, { entities });
+          res.json(entities);
         } catch (err) {
           next(err);
         }
       })
-      /*
       .post(async (req, res, next) => {
         try {
           const entity = await this.entityService.createEntity({ id: req.body.id, name: req.body.name });
@@ -26,18 +24,17 @@ export class EntityController implements Controller {
         } catch (err) {
           next(err);
         }
-      }) */;
+      });
 
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
         try {
           const entity = await this.entityService.getEntity(req.params.id);
-          res.render(this.view, { entities: [ entity ] });
+          res.json(entity);
         } catch (err) {
           next(err);
         }
       })
-      /*
       .put(async (req, res, next) => {
         try {
           const entity = await this.entityService.updateEntity({ id: req.params.id, name: req.body.name });
@@ -53,6 +50,6 @@ export class EntityController implements Controller {
         } catch (err) {
           next(err);
         }
-      }) */;
+      });
   }
 }

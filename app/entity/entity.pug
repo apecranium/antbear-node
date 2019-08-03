@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', contents='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css')
+    title Entities
+  body
+  section.section
+    .container
+      h1.title Entities
+      table.table
+        thead
+          tr
+            th Id
+            th Name
+        tbody
+          each entity in entities
+            tr
+              td= entity.id
+              td= entity.name

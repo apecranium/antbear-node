@@ -1,3 +1,4 @@
+export * from '@app/entity/entity.api.controller';
 export * from '@app/entity/entity.controller';
 export * from '@app/entity/entity.data';
 export * from '@app/entity/entity.interface';
