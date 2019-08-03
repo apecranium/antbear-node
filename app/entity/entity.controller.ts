@@ -1,11 +1,12 @@
 import { EntityService } from '@app/entity';
 import { Controller } from '@app/shared';
 import { Router } from 'express';
+import path from 'path';
 
 export class EntityController implements Controller {
   public path = '/entities';
   public router = Router();
-  public view = `${__dirname}/entity`;
+  public view = 'entity';
   private entityService = new EntityService();
 
   constructor() {
