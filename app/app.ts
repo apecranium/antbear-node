@@ -8,6 +8,7 @@ export class App {
   public port: number;
   public path = '/';
   public apiPath = '/api';
+  public view = 'index';
 
   constructor(controllers: Controller[], apiControllers: Controller[]) {
     this.port = parseInt(process.env.PORT as string, 10) || Config.env.port;
@@ -16,7 +17,7 @@ export class App {
     this.app.set('view engine', 'pug');
 
     this.app.get('/', (req, res) => {
-      res.json({ message: 'Hello, welcome to my API!' });
+      res.render(this.view);
     });
 
     for (const controller of controllers) {

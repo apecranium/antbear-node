@@ -1,12 +1,13 @@
 import { EntityService } from '@app/entity';
 import { Controller } from '@app/shared';
 import { Router } from 'express';
-import path from 'path';
 
 export class EntityController implements Controller {
   public path = '/entities';
   public router = Router();
+  public viewAll = 'entities';
   public view = 'entity';
+  public title = 'Entities';
   private entityService = new EntityService();
 
   constructor() {
@@ -14,7 +15,7 @@ export class EntityController implements Controller {
       .get(async (req, res, next) => {
         try {
           const entities = await this.entityService.getEntities();
-          res.render(this.view, { entities });
+          res.render(this.viewAll, { title: this.title, entities });
         } catch (err) {
           next(err);
         }
@@ -33,7 +34,7 @@ export class EntityController implements Controller {
       .get(async (req, res, next) => {
         try {
           const entity = await this.entityService.getEntity(req.params.id);
-          res.render(this.view, { entities: [ entity ] });
+          res.render(this.view, { title: this.title, entity });
         } catch (err) {
           next(err);
         }

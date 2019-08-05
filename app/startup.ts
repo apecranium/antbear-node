@@ -2,19 +2,20 @@ import { App } from '@app/app';
 import { AuthenticationController } from '@app/authentication';
 import { Database } from '@app/database';
 import { EntityApiController, EntityController } from '@app/entity';
-import { UserController } from '@app/user';
+import { UserApiController, UserController } from '@app/user';
 import { config } from 'dotenv';
 
 export class Startup {
   public static db = new Database();
   public static app = new App(
   [
-    new EntityController()
+    new EntityController(),
+    new UserController()
   ],
   [
     new AuthenticationController(),
     new EntityApiController(),
-    new UserController()
+    new UserApiController()
   ]);
 
   public static main() {

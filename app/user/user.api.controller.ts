@@ -2,12 +2,9 @@ import { Controller } from '@app/shared';
 import { UserService } from '@app/user';
 import { Router } from 'express';
 
-export class UserController implements Controller {
+export class UserApiController implements Controller {
   public path = '/users';
   public router = Router();
-  public viewAll = 'users';
-  public view = 'user';
-  public title = 'Users';
   private userService = new UserService();
 
   constructor() {
@@ -15,12 +12,11 @@ export class UserController implements Controller {
       .get(async (req, res, next) => {
         try {
           const users = await this.userService.getUsers();
-          res.render(this.viewAll, { title: this.title, users });
+          res.json(users);
         } catch (err) {
           next(err);
         }
       })
-      /*
       .post(async (req, res, next) => {
         try {
           const userData = { name: req.body.name, credentials: { email: req.body.email, password: req.body.password }};
@@ -29,18 +25,17 @@ export class UserController implements Controller {
         } catch (err) {
           next(err);
         }
-      }) */;
+      });
 
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
         try {
           const user = await this.userService.getUser(req.params.id);
-          res.render(this.view, { title: this.title, user });
+          res.json(user);
         } catch (err) {
           next(err);
         }
       })
-      /*
       .put(async (req, res, next) => {
         try {
           const user = await this.userService.updateUser({ id: req.params.id, name: req.body.name, credentials: {}});
@@ -56,6 +51,6 @@ export class UserController implements Controller {
         } catch (err) {
           next(err);
         }
-      }) */;
+      });
   }
 }

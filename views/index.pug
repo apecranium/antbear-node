@@ -1,0 +1,21 @@
+extends layout.pug
+block breadcrumb
+  li.is-active
+    a(href='#') Index
+block content
+  section.section
+    .container
+      h1.title Hello!
+      p Welcome to my app! Click a link below, or explore the 
+        a(href='/api/entities') API.
+  section.section
+    .container
+      .tile.is-ancestor
+        .tile.is-parent
+          .tile.is-child.box
+            p.title
+              a(href='/entities') Entities
+        .tile.is-parent
+          .tile.is-child.box
+            p.title
+              a(href='/users') Users

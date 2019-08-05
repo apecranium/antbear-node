@@ -1,3 +1,4 @@
+export * from '@app/user/user.api.controller';
 export * from '@app/user/user.controller';
 export * from '@app/user/user.data';
 export * from '@app/user/user.interface';

@@ -1,0 +1,18 @@
+doctype html
+html(lang='en-us')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', contents='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css')
+    title #{title}
+  body
+    section.section
+      nav.breadcrumb
+        .container
+          ul
+            block breadcrumb
+    block content
+    footer.footer
+      .content.has-text-centered
+        p &copy; 2019 Ryan Wildes. View source at 
+          a(href='https://github.com/apecranium/galaxy-express') GitHub.

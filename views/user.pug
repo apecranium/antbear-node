@@ -3,20 +3,24 @@ block breadcrumb
   li
     a(href='/') Index
   li
-    a(href='/entities') Entities
+    a(href='/users') Users
   li.is-active
-    a(href='#')= entity.id
+    a(href='#')= user.id
 block content
   section.section
     .container
-      h1.title Entity
+      h1.title User
       table.table.is-bordered
         tbody
           tr
             td
               strong Id
-            td= entity.id
+            td= user.id
           tr
             td
               strong Name
-            td= entity.name
+            td= user.name
+          tr
+            td
+              strong Email
+            td= user.credentials.email
