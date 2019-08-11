@@ -1,7 +1,7 @@
 extends layout.pug
 block breadcrumb
   li.is-active
-    a(href='#') Index
+    a.has-text-white(href='#') index
 block content
   section.section
     .container
@@ -12,10 +12,10 @@ block content
     .container
       .tile.is-ancestor
         .tile.is-parent
-          .tile.is-child.box
+          article.tile.is-child.box
             p.title
               a(href='/entities') Entities
         .tile.is-parent
-          .tile.is-child.box
+          article.tile.is-child.box
             p.title
               a(href='/users') Users

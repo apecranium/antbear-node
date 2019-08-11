@@ -17,7 +17,7 @@ export class App {
     this.app.set('view engine', 'pug');
 
     this.app.get('/', (req, res) => {
-      res.render(this.view);
+      res.render(this.view, { title: 'Index' });
     });
 
     for (const controller of controllers) {

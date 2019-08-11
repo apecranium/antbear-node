@@ -1,22 +1,24 @@
 extends layout.pug
 block breadcrumb
   li
-    a(href='/') Index
+    a(href='/') index
   li
-    a(href='/entities') Entities
+    a(href='/entities') entities
   li.is-active
-    a(href='#')= entity.id
+    a.has-text-white(href='#')= entity.id
 block content
   section.section
     .container
-      h1.title Entity
-      table.table.is-bordered
-        tbody
-          tr
-            td
-              strong Id
-            td= entity.id
-          tr
-            td
-              strong Name
-            td= entity.name
+      .columns
+        .column.is-12
+          h1.title Entity
+          table.table.is-bordered
+            tbody
+              tr
+                td
+                  strong Id
+                td= entity.id
+              tr
+                td
+                  strong Name
+                td= entity.name

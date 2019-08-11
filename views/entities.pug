@@ -1,13 +1,12 @@
 extends layout.pug
 block breadcrumb
   li
-    a(href='/') Index
+    a(href='/') index
   li.is-active
-    a(href='#') Entities
+    a.has-text-white(href='#') entities
 block content
   section.section
     .container
-      h1.title= title
       table.table
         thead
           tr

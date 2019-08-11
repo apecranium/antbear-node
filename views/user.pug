@@ -1,26 +1,28 @@
 extends layout.pug
 block breadcrumb
   li
-    a(href='/') Index
+    a(href='/') index
   li
-    a(href='/users') Users
+    a(href='/users') users
   li.is-active
-    a(href='#')= user.id
+    a.has-text-white(href='#')= user.id
 block content
   section.section
     .container
-      h1.title User
-      table.table.is-bordered
-        tbody
-          tr
-            td
-              strong Id
-            td= user.id
-          tr
-            td
-              strong Name
-            td= user.name
-          tr
-            td
-              strong Email
-            td= user.credentials.email
+      .columns
+        .column.is-12
+          h1.title User
+          table.table.is-bordered
+            tbody
+              tr
+                td
+                  strong Id
+                td= user.id
+              tr
+                td
+                  strong Name
+                td= user.name
+              tr
+                td
+                  strong Email
+                td= user.credentials.email
