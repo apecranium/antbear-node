@@ -7,7 +7,6 @@ export class EntityController implements Controller {
   public router = Router();
   public viewAll = 'entities';
   public view = 'entity';
-  public title = 'Entities';
   private entityService = new EntityService();
 
   constructor() {
@@ -15,7 +14,7 @@ export class EntityController implements Controller {
       .get(async (req, res, next) => {
         try {
           const entities = await this.entityService.getEntities();
-          res.render(this.viewAll, { title: this.title, entities });
+          res.render(this.viewAll, { title: this.viewAll, entities });
         } catch (err) {
           next(err);
         }
@@ -34,7 +33,7 @@ export class EntityController implements Controller {
       .get(async (req, res, next) => {
         try {
           const entity = await this.entityService.getEntity(req.params.id);
-          res.render(this.view, { title: this.title, entity });
+          res.render(this.view, { title: this.view, entity });
         } catch (err) {
           next(err);
         }

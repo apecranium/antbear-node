@@ -14,10 +14,11 @@ export class App {
     this.port = parseInt(process.env.PORT as string, 10) || Config.env.port;
     this.app.use(express.json());
     this.app.use(morgan(Config.env.log));
+    this.app.use('/static', express.static('static'));
     this.app.set('view engine', 'pug');
 
     this.app.get('/', (req, res) => {
-      res.render(this.view, { title: 'Index' });
+      res.render(this.view, { title: 'index' });
     });
 
     for (const controller of controllers) {
@@ -33,7 +34,7 @@ export class App {
 
   public listen() {
     this.app.listen(this.port, () => {
-      console.log(`app listening at http://localhost:${this.port}`);
+      console.log(`app listening at port ${this.port}`);
     });
   }
 }

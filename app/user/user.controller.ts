@@ -7,7 +7,6 @@ export class UserController implements Controller {
   public router = Router();
   public viewAll = 'users';
   public view = 'user';
-  public title = 'Users';
   private userService = new UserService();
 
   constructor() {
@@ -15,7 +14,7 @@ export class UserController implements Controller {
       .get(async (req, res, next) => {
         try {
           const users = await this.userService.getUsers();
-          res.render(this.viewAll, { title: this.title, users });
+          res.render(this.viewAll, { title: this.viewAll, users });
         } catch (err) {
           next(err);
         }
@@ -35,7 +34,7 @@ export class UserController implements Controller {
       .get(async (req, res, next) => {
         try {
           const user = await this.userService.getUser(req.params.id);
-          res.render(this.view, { title: this.title, user });
+          res.render(this.view, { title: this.view, user });
         } catch (err) {
           next(err);
         }
