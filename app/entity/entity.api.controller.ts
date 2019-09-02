@@ -1,6 +1,6 @@
+import { Router } from 'express';
 import { EntityService } from '../entity';
 import { Controller } from '../shared';
-import { Router } from 'express';
 
 export class EntityApiController implements Controller {
   public path = '/entities';

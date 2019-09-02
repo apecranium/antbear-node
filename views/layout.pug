@@ -4,7 +4,7 @@ html(lang='en-us')
     meta(charset='utf-8')
     meta(name='viewport', contents='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css')
-    link(rel='icon', type='image/png', href='/static/favicon-96x96.png')
+    link(rel='icon', type='image/png', href='/static/favicon.ico')
     title #{title} / antbear.xyz
   body
     section.hero.is-primary.is-bold
@@ -15,10 +15,10 @@ html(lang='en-us')
               block breadcrumb
       .hero-body
         .container
-          h1.title antbear.xyz
+          h1.title #[img(style='fill:currentColor;height:48px;width:48px;vertical-align:middle', src='/static/anteater.svg')] antbear.xyz
           h2.subtitle #{title}
     block content
     footer.footer
       .content.has-text-centered
-        p &copy; 2019 Ryan Wildes. View source at 
-          a(href='https://github.com/apecranium/galaxy-express') GitHub.
+        p &copy; 2019 Ryan Wildes. View source at #[a(href='https://github.com/apecranium/galaxy-express') GitHub].
+        p Icon by #[a(href='https://www.flaticon.com/authors/freepik') Freepik].

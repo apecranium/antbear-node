@@ -1,12 +1,12 @@
 import test from 'tape';
-import { Environment } from '../app/config';
+// import { Environment } from '../app/config';
 import { Database } from '../app/database';
 import { EntityService } from '../app/entity/entity.service';
 
-const env = Environment.TEST;
+// const env = Environment.TEST;
 
 test('entity service', async t => {
-  const testDb = new Database(env);
+  const testDb = new Database();
   await testDb.connect();
   const entityService = new EntityService();
   const ent = await entityService.getEntities();
