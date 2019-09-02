@@ -1,9 +1,8 @@
-import { Config } from '@app/config';
-import { HttpError } from '@app/shared';
-import { UserModel } from '@app/user';
 import { compare, hash } from 'bcryptjs';
 import { NextFunction, Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
+import { HttpError } from '../shared';
+import { UserModel } from '../user';
 
 export interface TokenData {
   id: string;
@@ -21,7 +20,7 @@ export class CryptoService {
   }
 
   public sign = async (payload: {}) => {
-    return await sign(payload, process.env.SECRET_KEY as string, { expiresIn: Config.env.tokenExpiry });
+    return await sign(payload, process.env.SECRET_KEY as string, { expiresIn: process.env.TOKEN_EXPIRY });
   }
 
   public verify = async (req: Request, res: Response, next: NextFunction) => {

@@ -1,21 +1,21 @@
-import { Config } from '@app/config';
-import { Controller, ErrorHandler } from '@app/shared';
 import express from 'express';
+import helmet from 'helmet';
 import morgan from 'morgan';
+import { Controller, ErrorHandler } from './shared';
 
 export class App {
   public app = express();
-  public port: number;
-  public path = '/';
-  public apiPath = '/api';
   public view = 'index';
 
-  constructor(controllers: Controller[], apiControllers: Controller[]) {
-    this.port = parseInt(process.env.PORT as string, 10) || Config.env.port;
+  constructor(public port: string, public path: string, isWeb: boolean, controllers: Controller[]) {
     this.app.use(express.json());
-    this.app.use(morgan(Config.env.log));
-    this.app.use('/static', express.static('static'));
-    this.app.set('view engine', 'pug');
+    this.app.use(morgan(process.env.LOG || 'dev'));
+    this.app.use(helmet());
+
+    if (isWeb) {
+      this.app.use('/static', express.static('static'));
+      this.app.set('view engine', 'pug');
+    }
 
     this.app.get('/', (req, res) => {
       res.render(this.view, { title: 'index' });
@@ -23,10 +23,6 @@ export class App {
 
     for (const controller of controllers) {
       this.app.use(this.path, controller.router);
-    }
-
-    for (const controller of apiControllers) {
-      this.app.use(this.apiPath, controller.router);
     }
 
     this.app.use(new ErrorHandler().handle);

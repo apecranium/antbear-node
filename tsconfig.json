@@ -1,15 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es6",
     "module": "commonjs",
     "esModuleInterop": true,
     "strict": true,
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "@app/*": ["app/*"]
-    }
+    "outDir": "dist"
   },
   "include": [
     "app/**/*.ts"

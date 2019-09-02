@@ -1,5 +1,5 @@
-import { CryptoService, HttpError } from '@app/shared';
-import { Credentials, User, UserModel } from '@app/user';
+import { CryptoService, HttpError } from '../shared';
+import { Credentials, User, UserModel } from '../user';
 
 export class AuthenticationService {
   constructor(private readonly cryptoService: CryptoService) {

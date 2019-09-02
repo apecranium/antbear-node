@@ -1,4 +1,4 @@
-import { Entity } from '@app/entity';
+import { Entity } from '../entity';
 
 export class EntityData implements Entity {
   public id: string;

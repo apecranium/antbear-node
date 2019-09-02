@@ -1,5 +1,5 @@
-import { HttpError } from '@app/shared';
-import { User, UserData, UserModel } from '@app/user';
+import { HttpError } from '../shared';
+import { User, UserData, UserModel } from '../user';
 
 export class UserService {
 

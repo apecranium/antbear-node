@@ -26,12 +26,12 @@ yarn start
 
 **to create an entity:**
 ```shell
-curl -X "POST" http://localhost:8080/api/entities -H "Content-Type: application/json" -d '{\"name\":\"Margaret\"}'
+curl -X "POST" http://localhost:8081/api/entities -H "Content-Type: application/json" -d '{\"name\":\"Margaret\"}'
 ```
 
 **to get entities:**
 ```shell
-curl http://localhost:8080/api/entities
+curl http://localhost:8081/api/entities
 ```
 
 **todo:**

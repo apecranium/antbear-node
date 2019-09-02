@@ -1,6 +1,6 @@
-import { Controller } from '@app/shared';
-import { UserService } from '@app/user';
 import { Router } from 'express';
+import { Controller } from '../shared';
+import { UserService } from '../user';
 
 export class UserController implements Controller {
   public path = '/users';

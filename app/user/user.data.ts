@@ -1,4 +1,4 @@
-import { User } from '@app/user';
+import { User } from '../user';
 
 export class UserData implements User {
   public id: string;

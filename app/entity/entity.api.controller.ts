@@ -1,5 +1,5 @@
-import { EntityService } from '@app/entity';
-import { Controller } from '@app/shared';
+import { EntityService } from '../entity';
+import { Controller } from '../shared';
 import { Router } from 'express';
 
 export class EntityApiController implements Controller {

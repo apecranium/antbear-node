@@ -1,8 +1,7 @@
-import { AuthenticationService } from '@app/authentication';
-import { Config } from '@app/config';
-import { Controller, CryptoService } from '@app/shared';
-import { UserService } from '@app/user';
 import { Router } from 'express';
+import { AuthenticationService } from '../authentication';
+import { Controller, CryptoService } from '../shared';
+import { UserService } from '../user';
 
 export class AuthenticationController implements Controller {
   public path = '/auth';

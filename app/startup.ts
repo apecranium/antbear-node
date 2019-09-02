@@ -1,27 +1,27 @@
-import { App } from '@app/app';
-import { AuthenticationController } from '@app/authentication';
-import { Database } from '@app/database';
-import { EntityApiController, EntityController } from '@app/entity';
-import { UserApiController, UserController } from '@app/user';
 import { config } from 'dotenv';
+import { App } from './app';
+import { AuthenticationController } from './authentication';
+import { Database } from './database';
+import { EntityApiController, EntityController } from './entity';
+import { UserApiController, UserController } from './user';
+config();
 
 export class Startup {
   public static db = new Database();
-  public static app = new App(
-  [
+  public static webApp = new App(process.env.WEB_PORT || '8080', '/', true, [
     new EntityController(),
     new UserController()
-  ],
-  [
+  ]);
+  public static apiApp = new App(process.env.API_PORT || '8081', '/api', false, [
     new AuthenticationController(),
     new EntityApiController(),
     new UserApiController()
   ]);
 
   public static main() {
-    config();
     Startup.db.connect();
-    Startup.app.listen();
+    Startup.webApp.listen();
+    Startup.apiApp.listen();
   }
 }
 

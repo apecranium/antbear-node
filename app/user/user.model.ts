@@ -1,5 +1,5 @@
-import { User } from '@app/user';
 import { Document, model, Schema } from 'mongoose';
+import { User } from '../user';
 
 export const CredentialsSchema = new Schema({
   email: { type: String, required: true, unique: true },

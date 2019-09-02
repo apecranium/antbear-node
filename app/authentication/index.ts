@@ -1,2 +1,2 @@
-export * from '@app/authentication/authentication.controller';
-export * from '@app/authentication/authentication.service';
+export * from './authentication.controller';
+export * from './authentication.service';
