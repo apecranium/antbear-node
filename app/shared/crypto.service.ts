@@ -36,8 +36,8 @@ export class CryptoService {
       }
       res.locals.tokenData = tokenData;
       next();
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   }
 

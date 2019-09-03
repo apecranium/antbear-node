@@ -13,8 +13,8 @@ export class UserApiController implements Controller {
         try {
           const users = await this.userService.getUsers();
           res.json(users);
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       })
       .post(async (req, res, next) => {
@@ -22,8 +22,8 @@ export class UserApiController implements Controller {
           const userData = { name: req.body.name, credentials: { email: req.body.email, password: req.body.password }};
           const user = await this.userService.createUser(userData);
           res.status(201).json(user);
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       });
 
@@ -32,24 +32,25 @@ export class UserApiController implements Controller {
         try {
           const user = await this.userService.getUser(req.params.id);
           res.json(user);
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       })
       .put(async (req, res, next) => {
         try {
-          const user = await this.userService.updateUser({ id: req.params.id, name: req.body.name, credentials: {}});
+          const user = await this.userService.updateUser({ id: req.params.id, name: req.body.name,
+                                                           credentials: { email: req.body.email }});
           res.json(user);
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       })
       .delete(async (req, res, next) => {
         try {
           await this.userService.deleteUser(req.params.id);
           res.json({ message: `User ${req.params.id} deleted.` });
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       });
   }

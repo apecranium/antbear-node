@@ -15,8 +15,8 @@ export class EntityController implements Controller {
         try {
           const entities = await this.entityService.getEntities();
           res.render(this.viewAll, { title: this.viewAll, entities });
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       })
       /*
@@ -24,8 +24,8 @@ export class EntityController implements Controller {
         try {
           const entity = await this.entityService.createEntity({ id: req.body.id, name: req.body.name });
           res.status(201).json(entity);
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       }) */;
 
@@ -34,8 +34,8 @@ export class EntityController implements Controller {
         try {
           const entity = await this.entityService.getEntity(req.params.id);
           res.render(this.view, { title: this.view, entity });
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       })
       /*
@@ -43,16 +43,16 @@ export class EntityController implements Controller {
         try {
           const entity = await this.entityService.updateEntity({ id: req.params.id, name: req.body.name });
           res.json(entity);
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       })
       .delete(async (req, res, next) => {
         try {
           await this.entityService.deleteEntity(req.params.id);
           res.json({ message: `Entity ${req.params.id} deleted.` });
-        } catch (err) {
-          next(err);
+        } catch (error) {
+          next(error);
         }
       }) */;
   }

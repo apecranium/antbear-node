@@ -17,13 +17,13 @@ export class App {
       this.app.set('view engine', 'pug');
     }
 
-    this.app.get('/', (req, res) => {
-      res.render(this.view, { title: 'index' });
-    });
-
     for (const controller of controllers) {
       this.app.use(this.path, controller.router);
     }
+
+    this.app.all('*', (req, res) => {
+      res.render('404', { title: '404' });
+    });
 
     this.app.use(new ErrorHandler().handle);
   }

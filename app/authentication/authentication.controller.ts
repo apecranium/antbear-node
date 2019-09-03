@@ -18,8 +18,8 @@ export class AuthenticationController implements Controller {
         const userData = { name: req.body.name, credentials: { email: req.body.email, password: req.body.password }};
         const token = await this.authService.registerUser(userData);
         res.json({ authenticated: true, token });
-      } catch (err) {
-        next(err);
+      } catch (error) {
+        next(error);
       }
     })
 
@@ -28,8 +28,8 @@ export class AuthenticationController implements Controller {
         const credentials = { email: req.body.email, password: req.body.password };
         const token = await this.authService.loginUser(credentials);
         res.json({ authenticated: true, token });
-      } catch (err) {
-        next(err);
+      } catch (error) {
+        next(error);
       }
     })
 
@@ -39,8 +39,8 @@ export class AuthenticationController implements Controller {
         const issuedAt = new Date(res.locals.tokenData.iat * 1000).toString();
         const expiresAt = new Date(res.locals.tokenData.exp * 1000).toString();
         res.json({ authenticated: true, user, issuedAt, expiresAt });
-      } catch (err) {
-        next(err);
+      } catch (error) {
+        next(error);
       }
     });
   }
