@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { HttpError } from '../shared';
 import { User, UserData, UserModel } from '../user';
 
@@ -19,6 +20,9 @@ export class UserService {
   }
 
   public async getUser(id: string): Promise<User> {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new HttpError(400, 'Invalid user id.');
+    }
     const user = await UserModel.findById(id);
     if (!user) {
       throw new HttpError(404, 'User not found.');
@@ -27,6 +31,9 @@ export class UserService {
   }
 
   public async updateUser(u: User): Promise<User> {
+    if (!Types.ObjectId.isValid(u.id || '')) {
+      throw new HttpError(400, 'Invalid user id.');
+    }
     const user = await UserModel.findById(u.id);
     if (!user) {
       throw new HttpError(404, 'User not found.');
@@ -38,6 +45,9 @@ export class UserService {
   }
 
   public async deleteUser(id: string): Promise<User> {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new HttpError(400, 'Invalid user id.');
+    }
     const user = await UserModel.findById(id);
     if (!user) {
       throw new HttpError(404, 'User not found.');

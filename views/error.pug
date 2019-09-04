@@ -1,0 +1,9 @@
+extends layout.pug
+block breadcrumb
+  li
+    a(href='/') index
+block content
+  section.section
+    .container
+      h1.title= error.status
+      p= error.message

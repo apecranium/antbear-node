@@ -22,10 +22,10 @@ export class App {
     }
 
     this.app.all('*', (req, res) => {
-      res.render('404', { title: '404' });
+      res.render('404', { title: 'error' });
     });
 
-    this.app.use(new ErrorHandler().handle);
+    this.app.use(new ErrorHandler(isWeb).handle);
   }
 
   public listen() {
