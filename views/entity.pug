@@ -12,7 +12,7 @@ block content
       .columns
         .column.is-12
           h1.title Entity
-          table.table.is-bordered
+          table.table.is-striped
             tbody
               tr
                 td
@@ -22,3 +22,7 @@ block content
                 td
                   strong Name
                 td= entity.name
+              tr
+                td
+                  strong Created on
+                td= entity.createdOn

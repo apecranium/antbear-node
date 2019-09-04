@@ -8,15 +8,12 @@ html(lang='en-us')
     title #{title} / antbear.xyz
   body
     section.hero.is-primary.is-bold
-      .hero-head
+      .hero-body
         .container
+          h1.title #[a.has-text-white(href='/') #[img(style='fill:currentColor;height:48px;width:48px;vertical-align:middle', src='/static/anteater.svg')] antbear.xyz]
           nav.breadcrumb
             ul
               block breadcrumb
-      .hero-body
-        .container
-          h1.title #[img(style='fill:currentColor;height:48px;width:48px;vertical-align:middle', src='/static/anteater.svg')] antbear.xyz
-          h2.subtitle #{title}
     block content
     footer.footer
       .content.has-text-centered

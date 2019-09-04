@@ -13,9 +13,11 @@ block content
           tr
             th Id
             th Name
+            th Created on
         tbody
           each entity in entities
             tr
               td
                 a(href=`/entities/${entity.id}`)= entity.id
               td= entity.name
+              td= entity.createdOn
