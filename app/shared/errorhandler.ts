@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { HttpError } from '../shared';
 
 export class ErrorHandler {
-  constructor(public isWeb: boolean) {
+  constructor(private isWeb: boolean) {
   }
 
   public handle = (error: HttpError, req: Request, res: Response, next: NextFunction) => {

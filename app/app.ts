@@ -1,15 +1,16 @@
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { Config } from './config';
 import { Controller, ErrorHandler } from './shared';
 
 export class App {
   public app = express();
   public view = 'index';
 
-  constructor(public port: string, public path: string, isWeb: boolean, controllers: Controller[]) {
+  constructor(public port: number, public path: string, isWeb: boolean, controllers: Controller[]) {
     this.app.use(express.json());
-    this.app.use(morgan(process.env.LOG || 'dev'));
+    this.app.use(morgan(Config.logLevel));
     this.app.use(helmet());
 
     if (isWeb) {

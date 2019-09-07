@@ -1,10 +1,12 @@
 import { connect, connection} from 'mongoose';
 
 export class Database {
+  constructor(private connectionString: string) {
+  }
+
   public async connect() {
     try {
-      const connectionString = process.env.MONGODB_URI as string;
-      await connect(connectionString, { useNewUrlParser: true, family: 4 });
+      await connect(this.connectionString, { useNewUrlParser: true, family: 4 });
       console.log('connected to database');
     } catch (error) {
       console.log(`error connecting to database: ${error}`);

@@ -1,6 +1,7 @@
 import { compare, hash } from 'bcryptjs';
 import { NextFunction, Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
+import { Config } from '../config';
 import { HttpError } from '../shared';
 import { UserModel } from '../user';
 
@@ -20,7 +21,7 @@ export class CryptoService {
   }
 
   public sign = async (payload: {}) => {
-    return await sign(payload, process.env.SECRET_KEY as string, { expiresIn: process.env.TOKEN_EXPIRY });
+    return await sign(payload, Config.secretKey, { expiresIn: Config.tokenExpiry });
   }
 
   public verify = async (req: Request, res: Response, next: NextFunction) => {
@@ -29,7 +30,7 @@ export class CryptoService {
       if (!token) {
         throw new HttpError(403, 'No token provided.');
       }
-      const tokenData = await verify(token, process.env.SECRET_KEY as string) as TokenData;
+      const tokenData = await verify(token, Config.secretKey) as TokenData;
       const user = await UserModel.findById(tokenData.id);
       if (!user) {
         throw new HttpError(401, 'Unable to verify token.');
