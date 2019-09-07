@@ -8,16 +8,17 @@ block content
   section.section
     .container
       h1.title Entities
-      table.table
-        thead
-          tr
-            th Id
-            th Name
-            th Created on
-        tbody
-          each entity in entities
+      .table-container
+        table.table
+          thead
             tr
-              td
-                a(href=`/entities/${entity.id}`)= entity.id
-              td= entity.name
-              td= entity.createdOn
+              th Id
+              th Name
+              th Created on
+          tbody
+            each entity in entities
+              tr
+                td
+                  a(href=`/entities/${entity.id}`)= entity.id
+                td= entity.name
+                td= entity.createdOn

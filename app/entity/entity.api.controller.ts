@@ -19,7 +19,7 @@ export class EntityApiController implements Controller {
       })
       .post(async (req, res, next) => {
         try {
-          const entity = await this.entityService.createEntity({ id: req.body.id, name: req.body.name });
+          const entity = await this.entityService.createEntity({ name: req.body.name });
           res.status(201).json(entity);
         } catch (error) {
           next(error);
