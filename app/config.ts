@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 config();
 
 export class Config {
+  public static readonly env = process.env.NODE_ENV || 'development';
   public static readonly webPort = parseInt(process.env.WEB_PORT as string, 10) || 8080;
   public static readonly apiPort = parseInt(process.env.API_PORT as string, 10) || 8081;
   public static readonly dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ts-express';

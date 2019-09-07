@@ -5,8 +5,8 @@
   "scripts": {
     "test": "ts-node node_modules/tape/bin/tape test/**/*.ts | tap-spec",
     "dev": "nodemon",
-    "lint": "tslint -p tsconfig.json",
-    "prebuild": "yarn --production=false",
+    "lint": "tslint -p tsconfig.json --fix",
+    "prebuild": "yarn lint",
     "build": "tsc",
     "prestart": "yarn build",
     "start": "node ."
