@@ -4,9 +4,9 @@ import { HttpError } from '../shared';
 
 export class EntityService {
 
-  public async getEntities(): Promise<Entity[]> {
+  public async getEntities(page = 1, limit = 10): Promise<Entity[]> {
     const entities = new Array<EntityData>();
-    const ents = await EntityModel.find();
+    const ents = await EntityModel.find({}, null, { skip: (limit * (page - 1)), limit });
     for (const ent of ents) {
       entities.push(new EntityData(ent));
     }

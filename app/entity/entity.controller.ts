@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { EntityService } from '../entity';
+import { EntityDto, EntityService } from '../entity';
 import { Controller } from '../shared';
 
 export class EntityController implements Controller {
@@ -13,21 +13,28 @@ export class EntityController implements Controller {
     this.router.route(this.path)
       .get(async (req, res, next) => {
         try {
-          const entities = await this.entityService.getEntities();
-          res.render(this.viewAll, { title: this.viewAll, entities });
+          const page = parseInt(req.query.page, 10) || 1;
+          const limit = parseInt(req.query.limit, 10) || 10;
+          const entities = await this.entityService.getEntities(page, limit);
+          res.render(this.viewAll, { title: this.viewAll, entities, page });
         } catch (error) {
           next(error);
         }
+      });
+
+    this.router.route(`${this.path}/create`)
+      .get(async (req, res, next) => {
+        res.render('create_entity', { title: 'Create Entity' });
       })
-      /*
       .post(async (req, res, next) => {
         try {
-          const entity = await this.entityService.createEntity({ id: req.body.id, name: req.body.name });
-          res.status(201).json(entity);
+          const entDto = new EntityDto({ name: req.body.name });
+          const entity = await this.entityService.createEntity(entDto);
+          res.redirect(`${this.path}/${entity.id}`);
         } catch (error) {
           next(error);
         }
-      }) */;
+      });
 
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
@@ -37,23 +44,6 @@ export class EntityController implements Controller {
         } catch (error) {
           next(error);
         }
-      })
-      /*
-      .put(async (req, res, next) => {
-        try {
-          const entity = await this.entityService.updateEntity({ id: req.params.id, name: req.body.name });
-          res.json(entity);
-        } catch (error) {
-          next(error);
-        }
-      })
-      .delete(async (req, res, next) => {
-        try {
-          await this.entityService.deleteEntity(req.params.id);
-          res.json({ message: `Entity ${req.params.id} deleted.` });
-        } catch (error) {
-          next(error);
-        }
-      }) */;
+      });
   }
 }

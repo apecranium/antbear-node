@@ -9,13 +9,15 @@ export class App {
   public view = 'index';
 
   constructor(public port: number, public path: string, isWeb: boolean, controllers: Controller[]) {
-    this.app.use(express.json());
     this.app.use(morgan(Config.logLevel));
     this.app.use(helmet());
 
     if (isWeb) {
+      this.app.use(express.urlencoded());
       this.app.use('/static', express.static('static'));
       this.app.set('view engine', 'pug');
+    } else {
+      this.app.use(express.json());
     }
 
     for (const controller of controllers) {

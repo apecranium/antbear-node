@@ -11,7 +11,7 @@ export class EntityApiController implements Controller {
     this.router.route(this.path)
       .get(async (req, res, next) => {
         try {
-          const entities = await this.entityService.getEntities();
+          const entities = await this.entityService.getEntities(1, 100);
           res.json(entities);
         } catch (error) {
           next(error);
