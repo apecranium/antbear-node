@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { EntityService } from '../entity';
+import { EntityDto, EntityService } from '../entity';
 import { Controller } from '../shared';
 
 export class EntityApiController implements Controller {
@@ -19,7 +19,8 @@ export class EntityApiController implements Controller {
       })
       .post(async (req, res, next) => {
         try {
-          const entity = await this.entityService.createEntity({ name: req.body.name });
+          const entDto = new EntityDto({ name: req.body.name });
+          const entity = await this.entityService.createEntity(entDto);
           res.status(201).json(entity);
         } catch (error) {
           next(error);
@@ -29,7 +30,8 @@ export class EntityApiController implements Controller {
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
         try {
-          const entity = await this.entityService.getEntity(req.params.id);
+          const entDto = new EntityDto({ id: req.params.id });
+          const entity = await this.entityService.getEntity(entDto.id!);
           res.json(entity);
         } catch (error) {
           next(error);
@@ -37,7 +39,8 @@ export class EntityApiController implements Controller {
       })
       .put(async (req, res, next) => {
         try {
-          const entity = await this.entityService.updateEntity({ id: req.params.id, name: req.body.name });
+          const entDto = new EntityDto({ id: req.params.id, name: req.body.name });
+          const entity = await this.entityService.updateEntity(entDto);
           res.json(entity);
         } catch (error) {
           next(error);
@@ -45,8 +48,9 @@ export class EntityApiController implements Controller {
       })
       .delete(async (req, res, next) => {
         try {
-          await this.entityService.deleteEntity(req.params.id);
-          res.json({ message: `Entity ${req.params.id} deleted.` });
+          const entDto = new EntityDto({ id: req.params.id });
+          await this.entityService.deleteEntity(entDto.id!);
+          res.json({ message: `Entity ${entDto.id} deleted.` });
         } catch (error) {
           next(error);
         }

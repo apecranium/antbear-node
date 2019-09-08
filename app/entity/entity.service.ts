@@ -20,9 +20,6 @@ export class EntityService {
   }
 
   public async getEntity(id: string): Promise<Entity> {
-    if (!Types.ObjectId.isValid(id)) {
-      throw new HttpError(400, 'Invalid entity id.');
-    }
     const entity = await EntityModel.findById(id);
     if (!entity) {
       throw new HttpError(404, 'Entity not found.');
@@ -31,9 +28,6 @@ export class EntityService {
   }
 
   public async updateEntity(ent: Entity): Promise<Entity> {
-    if (!Types.ObjectId.isValid(ent.id || '')) {
-      throw new HttpError(400, 'Invalid entity id.');
-    }
     const entity = await EntityModel.findById(ent.id);
     if (!entity) {
       throw new HttpError(404, 'Entity not found.');
@@ -44,9 +38,6 @@ export class EntityService {
   }
 
   public async deleteEntity(id: string): Promise<Entity> {
-    if (!Types.ObjectId.isValid(id)) {
-      throw new HttpError(400, 'Invalid entity id.');
-    }
     const entity = await EntityModel.findById(id);
     if (!entity) {
       throw new HttpError(404, 'Entity not found.');
