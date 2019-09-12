@@ -1,4 +1,4 @@
-import { connect, connection} from 'mongoose';
+import { connect, connection } from 'mongoose';
 
 export class Database {
   constructor(private connectionString: string) {
@@ -9,7 +9,7 @@ export class Database {
       await connect(this.connectionString, { useNewUrlParser: true, family: 4 });
       console.log('connected to database');
     } catch (error) {
-      console.log(`error connecting to database: ${error}`);
+      console.error(`error connecting to database: ${error}`);
     }
   }
 
@@ -17,7 +17,7 @@ export class Database {
     try {
       await connection.close();
     } catch (error) {
-      console.log(`error disconnecting from database: ${error}`);
+      console.error(`error disconnecting from database: ${error}`);
     }
   }
 
@@ -25,7 +25,7 @@ export class Database {
     try {
       await connection.dropDatabase();
     } catch (error) {
-      console.log(`error dropping database: ${error}`);
+      console.error(`error dropping database: ${error}`);
     }
   }
 }

@@ -31,7 +31,7 @@ export class EntityApiController implements Controller {
       .get(async (req, res, next) => {
         try {
           const entDto = new EntityDto({ id: req.params.id });
-          const entity = await this.entityService.getEntity(entDto.id!);
+          const entity = await this.entityService.getEntity(entDto.id);
           res.json(entity);
         } catch (error) {
           next(error);
@@ -49,7 +49,7 @@ export class EntityApiController implements Controller {
       .delete(async (req, res, next) => {
         try {
           const entDto = new EntityDto({ id: req.params.id });
-          await this.entityService.deleteEntity(entDto.id!);
+          await this.entityService.deleteEntity(entDto.id);
           res.json({ message: `Entity ${entDto.id} deleted.` });
         } catch (error) {
           next(error);

@@ -14,7 +14,7 @@ block content
         div.field
           label.label(for='name') Name
           .control
-            input#name.input(type='text', name='name', required)
+            input#name.input(type='text', name='name', pattern='^[a-zA-Z ]{1,32}$', placeholder='Entity name', required)
         div.field
           .control
             button.button.is-link(type='submit') Submit

@@ -13,7 +13,7 @@ export class App {
     this.app.use(helmet());
 
     if (isWeb) {
-      this.app.use(express.urlencoded());
+      this.app.use(express.urlencoded({ extended: true }));
       this.app.use('/static', express.static('static'));
       this.app.set('view engine', 'pug');
     } else {

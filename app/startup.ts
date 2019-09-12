@@ -3,7 +3,7 @@ import { AuthenticationController } from './authentication';
 import { Config } from './config';
 import { Database } from './database';
 import { EntityApiController, EntityController } from './entity';
-import { IndexController } from './index.controller';
+import { IndexController } from './shared';
 import { UserApiController, UserController } from './user';
 
 export class Startup {

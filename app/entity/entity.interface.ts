@@ -1,6 +1,6 @@
 export interface Entity {
-  id?: string;
-  name?: string;
-  createdAt?: Date;
-  createdOn?: string;
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

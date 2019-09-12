@@ -5,8 +5,6 @@ import { Controller } from '../shared';
 export class EntityController implements Controller {
   public path = '/entities';
   public router = Router();
-  public viewAll = 'entities';
-  public view = 'entity';
   private entityService = new EntityService();
 
   constructor() {
@@ -16,7 +14,7 @@ export class EntityController implements Controller {
           const page = parseInt(req.query.page, 10) || 1;
           const limit = parseInt(req.query.limit, 10) || 10;
           const entities = await this.entityService.getEntities(page, limit);
-          res.render(this.viewAll, { title: this.viewAll, entities, page });
+          res.render('entities', { title: 'entities', entities, page });
         } catch (error) {
           next(error);
         }
@@ -39,8 +37,9 @@ export class EntityController implements Controller {
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
         try {
-          const entity = await this.entityService.getEntity(req.params.id);
-          res.render(this.view, { title: this.view, entity });
+          const entDto = new EntityDto({ id: req.params.id });
+          const entity = await this.entityService.getEntity(entDto.id);
+          res.render('entity', { title: 'entity', entity });
         } catch (error) {
           next(error);
         }
