@@ -22,5 +22,9 @@ block content
             td= entity.name
           tr
             td
-              strong Created on
-            td= entity.createdOn
+              strong Created at
+            td= entity.createdAt.toLocaleString()
+          tr
+            td
+              strong Updated at
+            td= entity.updatedAt.toLocaleString()
