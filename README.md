@@ -1,6 +1,6 @@
 # galaxy-express
 
-[![Build Status](https://travis-ci.com/apecranium/galaxy-express.svg?branch=master)](https://travis-ci.com/apecranium/galaxy-express)
+[![Build Status](https://travis-ci.org/apecranium/galaxy-express.svg?branch=master)](https://travis-ci.org/apecranium/galaxy-express)
 
 express api using mongodb+mongoose and written in typescript
 
