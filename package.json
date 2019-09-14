@@ -1,6 +1,6 @@
 {
   "name": "galaxy-express",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "dist/startup.js",
   "scripts": {
     "test": "ts-node node_modules/tape/bin/tape test/**/*.ts | tap-spec",
