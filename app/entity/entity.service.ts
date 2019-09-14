@@ -12,6 +12,10 @@ export class EntityService {
     return entities;
   }
 
+  public async countEntities(filter?: string) {
+    return await EntityModel.countDocuments({ filter });
+  }
+
   public async createEntity(ent: Partial<Entity>): Promise<Entity> {
     const entity = new EntityModel(ent);
     await entity.save();

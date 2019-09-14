@@ -12,6 +12,9 @@ block content
         .level-left
           .level-item
             a.button.is-primary(href='/entities/create') Create
+        .level-right
+          .level-item
+            p Page #{page} of #{maxPages}. Total items: #{count}.
       .table-container
         table.table
           thead
@@ -29,5 +32,11 @@ block content
                 td= entity.createdAt.toLocaleString()
                 td= entity.updatedAt.toLocaleString()
       nav.pagination
-        a.pagination-previous(href=`/entities?page=${page - 1}`) Previous page
-        a.pagination-next(href=`/entities/?page=${page + 1}`) Next page
+        if page - 1 > 0
+          a.pagination-previous(href=`/entities?page=${page - 1}`) Previous page
+        else
+          a.pagination-previous(disabled) Previous page
+        if page + 1 <= maxPages
+          a.pagination-next(href=`/entities/?page=${page + 1}`) Next page
+        else
+          a.pagination-next(disabled) Next page

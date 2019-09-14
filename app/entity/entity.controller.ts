@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { EntityDto, EntityService } from '../entity';
+import { EntityDto, EntityService, EntityViewModel } from '../entity';
 import { Controller } from '../shared';
 
 export class EntityController implements Controller {
@@ -14,7 +14,9 @@ export class EntityController implements Controller {
           const page = parseInt(req.query.page, 10) || 1;
           const limit = parseInt(req.query.limit, 10) || 10;
           const entities = await this.entityService.getEntities(page, limit);
-          res.render('entities', { title: 'entities', entities, page });
+          const count = await this.entityService.countEntities();
+          const entityViewModel = new EntityViewModel(page, limit, count, entities);
+          res.render('entities', entityViewModel);
         } catch (error) {
           next(error);
         }
