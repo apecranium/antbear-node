@@ -1,7 +1,9 @@
-import { connect, connection } from 'mongoose';
+import { connect, connection, set } from 'mongoose';
 
 export class Database {
   constructor(private connectionString: string) {
+    set('useCreateIndex', true);
+    set('useUnifiedTopology', true);
   }
 
   public async connect() {
