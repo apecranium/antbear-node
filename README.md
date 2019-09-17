@@ -1,6 +1,6 @@
 # antbear-node
 
-[![Build Status](https://travis-ci.org/apecranium/galaxy-express.svg?branch=master)](https://travis-ci.org/apecranium/galaxy-express)
+[![Build Status](https://travis-ci.org/apecranium/antbear-node.svg?branch=master)](https://travis-ci.org/apecranium/antbear-node)
 
 express app using mongodb+mongoose and written in typescript
 
