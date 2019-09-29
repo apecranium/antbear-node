@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { EntityDto, EntityService, EntityViewModel } from '../entity';
+import { EntityDto, EntityRepository, EntityViewModel } from '../entity';
 import { Controller, Result } from '../shared';
 
 export class EntityController implements Controller {
   public path = '/entities';
   public router = Router();
-  private entityService = new EntityService();
+  private entityRepo = new EntityRepository();
 
   public constructor() {
     this.router.route(this.path)
@@ -13,9 +13,9 @@ export class EntityController implements Controller {
         try {
           const page = Number(req.query.page) || 1;
           const limit = Number(req.query.limit) || 10;
-          const entities = await this.entityService.getEntities(page, limit);
-          const count = await this.entityService.countEntities();
-          const entityViewModel = new EntityViewModel(page, limit, count, entities);
+          const entitiesResult = await this.entityRepo.getAll(page, limit);
+          const count = await this.entityRepo.count();
+          const entityViewModel = new EntityViewModel(page, limit, count, entitiesResult.value);
           res.render('entities', entityViewModel);
         } catch (error) {
           next(error);
@@ -29,8 +29,8 @@ export class EntityController implements Controller {
       .post(async (req, res, next) => {
         try {
           const entDto = new EntityDto({ name: req.body.name });
-          const entity = await this.entityService.createEntity(entDto);
-          res.redirect(`${this.path}/${entity.id}`);
+          const entity = await this.entityRepo.create(entDto);
+          res.redirect(`${this.path}/${entity.value.id}`);
         } catch (error) {
           next(error);
         }
@@ -39,7 +39,7 @@ export class EntityController implements Controller {
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
         const entDto = new EntityDto({ id: req.params.id });
-        const entityResult = await this.entityService.getEntity(entDto.id);
+        const entityResult = await this.entityRepo.findById(entDto.id);
         if (Result.isError(entityResult.value)) {
           next(entityResult.value);
         } else {
