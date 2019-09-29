@@ -8,7 +8,7 @@ export class App {
   public app = express();
   public view = 'index';
 
-  constructor(public port: number, public path: string, isWeb: boolean, controllers: Controller[]) {
+  public constructor(public port: number, public path: string, isWeb: boolean, controllers: Controller[]) {
     this.app.use(morgan(Config.logLevel));
     this.app.use(helmet());
 
@@ -31,7 +31,7 @@ export class App {
     this.app.use(new ErrorHandler(isWeb).handle);
   }
 
-  public listen() {
+  public async listen() {
     this.app.listen(this.port, () => {
       console.log(`app listening at port ${this.port}`);
     });

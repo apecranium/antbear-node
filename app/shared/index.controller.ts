@@ -5,7 +5,7 @@ export class IndexController implements Controller {
   public path = '/:var(index)?';
   public router = Router();
 
-  constructor() {
+  public constructor() {
     this.router.route(this.path)
       .get(async (req, res, next) => {
         res.render('index', { title: 'index' });

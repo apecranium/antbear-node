@@ -5,7 +5,7 @@ export class UserData implements User {
   public name: string;
   public credentials: { email: string };
 
-  constructor(user: User) {
+  public constructor(user: User) {
     this.id = user.id || '';
     this.name = user.name || '';
     this.credentials = {

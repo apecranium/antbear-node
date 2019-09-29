@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import { EntityDto, EntityService, EntityViewModel } from '../entity';
-import { Controller } from '../shared';
+import { Controller, Result } from '../shared';
 
 export class EntityController implements Controller {
   public path = '/entities';
   public router = Router();
   private entityService = new EntityService();
 
-  constructor() {
+  public constructor() {
     this.router.route(this.path)
       .get(async (req, res, next) => {
         try {
-          const page = parseInt(req.query.page, 10) || 1;
-          const limit = parseInt(req.query.limit, 10) || 10;
+          const page = Number(req.query.page) || 1;
+          const limit = Number(req.query.limit) || 10;
           const entities = await this.entityService.getEntities(page, limit);
           const count = await this.entityService.countEntities();
           const entityViewModel = new EntityViewModel(page, limit, count, entities);
@@ -38,12 +38,12 @@ export class EntityController implements Controller {
 
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
-        try {
-          const entDto = new EntityDto({ id: req.params.id });
-          const entity = await this.entityService.getEntity(entDto.id);
-          res.render('entity', { title: 'entity', entity });
-        } catch (error) {
-          next(error);
+        const entDto = new EntityDto({ id: req.params.id });
+        const entityResult = await this.entityService.getEntity(entDto.id);
+        if (Result.isError(entityResult.value)) {
+          next(entityResult.value);
+        } else {
+          res.render('entity', { title: 'entity', entity: entityResult.value });
         }
       });
   }

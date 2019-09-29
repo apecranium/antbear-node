@@ -10,7 +10,7 @@ export class AuthenticationController implements Controller {
   private authService: AuthenticationService;
   private userService = new UserService();
 
-  constructor() {
+  public constructor() {
     this.authService = new AuthenticationService(this.cryptoService);
 
     this.router.post(`${this.path}/register`, async (req, res, next) => {

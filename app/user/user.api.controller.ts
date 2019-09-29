@@ -7,7 +7,7 @@ export class UserApiController implements Controller {
   public router = Router();
   private userService = new UserService();
 
-  constructor() {
+  public constructor() {
     this.router.route(this.path)
       .get(async (req, res, next) => {
         try {

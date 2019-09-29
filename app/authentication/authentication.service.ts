@@ -2,7 +2,7 @@ import { CryptoService, HttpError } from '../shared';
 import { Credentials, User, UserModel } from '../user';
 
 export class AuthenticationService {
-  constructor(private readonly cryptoService: CryptoService) {
+  public constructor(private readonly cryptoService: CryptoService) {
   }
 
   public async registerUser(userData: User): Promise<string> {

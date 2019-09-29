@@ -5,7 +5,7 @@ export class EntityDto implements Partial<Entity> {
   public id: string;
   public name: string;
 
-  constructor(entity: Partial<Entity>) {
+  public constructor(entity: Partial<Entity>) {
     if (entity.id || entity.id === '') {
       if (!entity.id.match(/^[a-zA-Z\d]{24}$/)) {
         throw new HttpError(400, 'Invalid id.');

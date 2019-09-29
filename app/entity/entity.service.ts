@@ -1,5 +1,6 @@
 import { Entity, EntityModel } from '../entity';
 import { HttpError } from '../shared';
+import { Result } from '../shared/result';
 
 export class EntityService {
 
@@ -22,30 +23,30 @@ export class EntityService {
     return entity;
   }
 
-  public async getEntity(id: string): Promise<Entity> {
+  public async getEntity(id: string): Promise<Result<Entity | HttpError>> {
     const entity = await EntityModel.findById(id);
     if (!entity) {
-      throw new HttpError(404, 'Entity not found.');
+      return Result.Fail(new HttpError(404, 'Entity not found.'));
     }
-    return entity;
+    return Result.OK(entity);
   }
 
-  public async updateEntity(ent: Partial<Entity>): Promise<Entity> {
+  public async updateEntity(ent: Partial<Entity>): Promise<Result<Entity | HttpError>> {
     const entity = await EntityModel.findById(ent.id);
     if (!entity) {
-      throw new HttpError(404, 'Entity not found.');
+      return Result.Fail(new HttpError(404, 'Entity not found.'));
     }
-    entity.name = ent.name ? ent.name : entity.name;
+    entity.name = ent.name || entity.name;
     await entity.save();
-    return entity;
+    return Result.OK(entity);
   }
 
-  public async deleteEntity(id: string): Promise<Entity> {
+  public async deleteEntity(id: string): Promise<Result<Entity | HttpError>> {
     const entity = await EntityModel.findById(id);
     if (!entity) {
-      throw new HttpError(404, 'Entity not found.');
+      return Result.Fail(new HttpError(404, 'Entity not found.'));
     }
     await entity.remove();
-    return entity;
+    return Result.OK(entity);
   }
 }

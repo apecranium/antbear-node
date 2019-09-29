@@ -1,7 +1,7 @@
 import { connect, connection, set } from 'mongoose';
 
 export class Database {
-  constructor(private connectionString: string) {
+  public constructor(private connectionString: string) {
     set('useCreateIndex', true);
     set('useUnifiedTopology', true);
   }

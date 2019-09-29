@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { EntityDto, EntityService } from '../entity';
-import { Controller } from '../shared';
+import { Controller, Result } from '../shared';
 
 export class EntityApiController implements Controller {
   public path = '/entities';
   public router = Router();
   private entityService = new EntityService();
 
-  constructor() {
+  public constructor() {
     this.router.route(this.path)
       .get(async (req, res, next) => {
         try {
@@ -29,30 +29,30 @@ export class EntityApiController implements Controller {
 
     this.router.route(`${this.path}/:id`)
       .get(async (req, res, next) => {
-        try {
-          const entDto = new EntityDto({ id: req.params.id });
-          const entity = await this.entityService.getEntity(entDto.id);
-          res.json(entity);
-        } catch (error) {
-          next(error);
+        const entDto = new EntityDto({ id: req.params.id });
+        const entityResult = await this.entityService.getEntity(entDto.id);
+        if (Result.isError(entityResult.value)) {
+          next(entityResult.value);
+        } else {
+          res.json(entityResult.value);
         }
       })
       .put(async (req, res, next) => {
-        try {
-          const entDto = new EntityDto({ id: req.params.id, name: req.body.name });
-          const entity = await this.entityService.updateEntity(entDto);
-          res.json(entity);
-        } catch (error) {
-          next(error);
+        const entDto = new EntityDto({ id: req.params.id, name: req.body.name });
+        const entityResult = await this.entityService.updateEntity(entDto);
+        if (Result.isError(entityResult.value)) {
+          next(entityResult.value);
+        } else {
+          res.json(entityResult.value);
         }
       })
       .delete(async (req, res, next) => {
-        try {
-          const entDto = new EntityDto({ id: req.params.id });
-          await this.entityService.deleteEntity(entDto.id);
+        const entDto = new EntityDto({ id: req.params.id });
+        const entityResult = await this.entityService.deleteEntity(entDto.id);
+        if (Result.isError(entityResult.value)) {
+          next(entityResult.value);
+        } else {
           res.json({ message: `Entity ${entDto.id} deleted.` });
-        } catch (error) {
-          next(error);
         }
       });
   }
